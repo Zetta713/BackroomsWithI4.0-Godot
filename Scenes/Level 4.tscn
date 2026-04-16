@@ -23,7 +23,6 @@ MultipleFloors = false
 Player = NodePath("../Player")
 PlayerSpawnMin = Vector3i(0, 1, 0)
 PlayerSpawnMax = Vector3i(1000, 1, 1000)
-Multiplayer = false
 
 [node name="Player" parent="." unique_id=632983521 instance=ExtResource("3_02u5l")]
 GravityMultiplier = null

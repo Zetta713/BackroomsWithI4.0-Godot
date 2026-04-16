@@ -12,6 +12,7 @@ var InstancedChunkParent: Node3D = null
 var ClonedChunkParent: Node3D = null
 
 @export_category("Map options")
+@export var LevelName: String = ""
 @export var Maps: Array[Texture2D] = []
 @export var BlackTextureInsteadOfNoise: bool = false
 var LoadedMaps: Dictionary[int, Texture2D] = {}
@@ -210,6 +211,8 @@ func _ready() -> void:
 	FNL.fractal_type = FastNoiseLite.FRACTAL_FBM
 	FNL.fractal_octaves = 5
 	
+	SetSeed(randi())
+	
 	InstancedChunkParent = Node3D.new()
 	InstancedChunkParent.name = "Instanced"
 	add_child(InstancedChunkParent)
@@ -227,10 +230,40 @@ func _ready() -> void:
 	
 	if (!Multiplayer && !Generate):
 		Generate = true
+	elif (Multiplayer):
+		if (LevelName not in MultiplayerConnection.VisitedLevels):
+			MultiplayerConnection.VisitedLevels.append(LevelName)
+		
+		if (MultiplayerConnection.Socket.get_status() != StreamPeerTCP.STATUS_CONNECTED):
+			if (Globals.Multiplayer_Debug):
+				var randomUser = Globals.Multiplayer_Debug_Users.keys()[randi() % Globals.Multiplayer_Debug_Users.size()]
+				
+				Globals.User_Username = randomUser
+				Globals.User_Password = Globals.Multiplayer_Debug_Users[randomUser]
+			
+			MultiplayerConnection.Connect(Globals.Multiplayer_Host, Globals.Multiplayer_Port)
+			
+			while (MultiplayerConnection.Socket.get_status() == StreamPeerTCP.STATUS_CONNECTING):
+				MultiplayerConnection.Socket.poll()
+				print("CONNECTING...")
+				
+				await get_tree().create_timer(2).timeout
+			
+			var loginResult = MultiplayerConnection.SendAndReceive("connect", [Globals.User_Username, Globals.User_Password])
+			
+			if (loginResult["code"] != "OK"):
+				pass  # TODO: Error when logging in (probably incorrect credentials)
+		
+		var authResult = MultiplayerConnection.SendAndReceive("is_authorized")
+		
+		if (authResult["args"][0]):
+			print("AUTHORIZED")
+			Generate = true
+		else:
+			print("NO AUTHORIZED")
+			pass  # TODO: Not authorized
 	
 	if (Generate):
-		SetSeed(randi())
-		
 		UpdateChunks()
 		SpawnPlayer()
 	
@@ -241,6 +274,9 @@ func _ready() -> void:
 	timer.timeout.connect(UpdateChunks)
 	add_child(timer)
 	timer.start()
+
+func _process(_Delta: float) -> void:
+	MultiplayerConnection.Socket.poll()
 
 func _physics_process(_Delta: float) -> void:
 	if (PlayerDieFalling && Player.position.y <= -PlayerDieFallingDistance):

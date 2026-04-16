@@ -1,10 +1,11 @@
 from typing import Any
 import os
 import json
+import time
 import argparse
 import socket
 import hashlib
-import random
+import classes
 
 def SendData(Socket: socket.socket, Data: str) -> None:
     data = []
@@ -34,7 +35,9 @@ def RecvData(Socket: socket.socket) -> str:
     
     return recvData.strip()
 
-def ClientReceive(Socket: socket.socket, Address: tuple[str, int], Data: str) -> None:
+def ClientReceive(Socket: socket.socket, Address: tuple[str, int], Data: str, Player: classes.Player) -> None:
+    global LoggedPlayers
+
     if (len(Data) == 0):
         raise ValueError("No data. Probably connection closed.")
 
@@ -42,52 +45,82 @@ def ClientReceive(Socket: socket.socket, Address: tuple[str, int], Data: str) ->
         parserdData: dict[str, Any] = json.loads(Data)
         action: str = parsedData["action"]
         arguments: list[Any] = parsedData["args"]
+        result_code: str = "OK"
+        result_args: list[Any] = []
 
-        if (action == "connect"):
+        if (Player in LoggedPlayers and LoggedPlayers[Player] != Socket):
+            result_args.append("Multiple instances are not allowed.")  # Make sure there are only one instance of a player
+        elif (actio == "is_authorized"):
+            result_args.append(Player in LoggedPlayers)
+        elif (action == "connect"):
+            time.sleep(0.1)
+
             username = arguments[0]
-            passwd = arguments[1].encode("utf-8")
-            passwdHash = hashlib.sha3_512(passwd).hexdigest()
+            passwdHash = hashlib.sha3_512(arguments[1].encode("utf-8")).hexdigest()
+            playerFound = False
 
-            if (username not in INFO["players"]):
-                INFO["players"][username] = {
-                    "auth_hash": passwdHash,
-                    "position": [0, 0, 0],
-                    "rotation": [0, 0, 0],
-                    "scale": [1, 1, 1],
-                    "groups": [],
-                    "items": [],
-                    "health": 100,
-                    "water": 100,
-                    "food": 100,
-                    "stamina": 100,
-                    "session_id": None
-                }
+            for player in INFO["players"]:
+                if (player.Username == username):
+                    playerFound = True
 
-            if (INFO["players"][username]["auth_hash"] == passwdHash):
-                INFO["players"][username]["session_id"] = random.randint()  # TODO
+                    if (player.AuthHash == passwdHash):
+                        Player = classes.Player.FromDict(player)
+                        LoggedPlayers.append(Player)
+
+                    break
+
+            if (Player not in LoggedPlayers and playerFound):
+                result_code = "FAILED"
+                result_args.append("Incorrect credentials.")
+            else:
+                INFO["players"] = Player
+                LoggedPlayers.append(Player)
+        elif (Player not in LoggedPlayers):
+            pass  # Make sure the player exists
         elif (action == "set_pos"):
-            pass
+            x, y, z = arguments[0], arguments[1], arguments[2]
+            Player.Position = (x, y, z)
+        elif (action == "set_rot"):
+            x, y, z = arguments[0], arguments[1], arguments[2]
+            Player.Rotation = (x, y, z)
+        elif (action == "set_scl"):
+            x, y, z = arguments[0], arguments[1], arguments[2]
+            Player.Scale = (x, y, z)
+        elif (action == "set_lvl"):
+            Player.CurrentLevel = arguments[0]
+        else:
+            state = "NOT FOUND"
+
+        Socket.send(json.dumps({"code": result_code, "args": result_args}))
     except:
         pass
 
 def ClientConnected(Socket: socket.socket, Address: tuple[str, int]) -> None:
-    while (True):
-        try:
-            data = RecvData(Socket)
-            ClientReceive(Socket, Address, data)
-        except:
-            break
-    
-    Socket.close()
+    global PlayersCount, LoggesPlayers
+    PlayersCount += 1
+    player = classes.Player(PlayersCount)
+
+    try:
+        while (True):
+            try:
+                data = RecvData(Socket)
+                ClientReceive(Socket, Address, data, player)
+            except:
+                break
+    finally:
+        if (player in LoggedPlayers):
+            LoggesPlayers.pop(player)
+
+        Socket.close()
 
 def EnsureFilesAndData() -> None:
     if (not os.path.exists(args.CONFIG_FILE)):
         with open(args.CONFIG_FILE, "x") as f:
-            f.write(json.dumps(DEFAULT_CONFIG))
+            f.write(json.dumps(DEFAULT_CONFIG, indent = 4))
 
     if (not os.path.exists(args.INFO_FILE)):
         with open(args.INFO_FILE, "x") as f:
-            f.write(json.dumps(DEFAULT_INFO))
+            f.write(json.dumps(DEFAULT_INFO, indent = 4))
 
 def ReadConfig() -> dict[str, Any]:
     with open(args.CONFIG_FILE, "r") as f:
@@ -128,10 +161,15 @@ EnsureFilesAndData()
 CONFIG = ReadConfig()
 INFO = ReadInfo()
 
+PlayersCount: int = 0
+LoggedPlayers: dict[classes.Player, socket.socket] = {}
+
 if (__name__ == "__main__"):
-    Server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    Server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     Server.bind((CONFIG["server"]["host"], CONFIG["server"]["port"]))
     Server.listen()
+
+    print(f"Server started at '{CONFIG['server']['host']}:{CONFIG['server']['port']}'.", flush = True)
 
     while (True):
         try:
@@ -140,5 +178,9 @@ if (__name__ == "__main__"):
         except KeyboardInterrupt:
             break
 
+    print("\nClosing server...", flush = True)
+
     Server.shutdown(socket.SHUT_RDWR)
     Server.close()
+
+    print("Server closed.", flush = True)

@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any
+from typing import Any, Self
 import random
 import copy
 
@@ -61,6 +61,15 @@ class GameEntity():
     def GetDictionary_Player(self) -> dict[str, Any]:
         return self.GetDictionary_Save()
 
+    @classmethod
+    def FromDict(cls, D: dict[str, Any]) -> Self:
+        instance = cls.__new__(cls)
+
+        for k, v in D.items():
+            setattr(instance, k, v)
+
+        return instance
+
 class Item(GameEntity):
     def __init__(self, ID: int, Name: str) -> None:
         super().__init__(ID, "ITEM")
@@ -74,24 +83,19 @@ class Item(GameEntity):
 class Player(GameEntity):
     def __init__(self, ID: int) -> None:
         super().__init__(ID, "PLAYER")
+        self.Username: str = ""
         self.AuthHash: str | None = None
+        self.CurrentLevel: str = ""
+        self.Tags: list[str] = []
         self.Water: float = 100
         self.Food: float = 100
         self.Stamina: float = 100
         self.Groups: list[str] = []
         self.Items: list[str] = []
-        self.ItemInHand: int | None = None
-        self.SessionID: int | None = None
-
-    def GetDictionary_Save() -> dict[str, Any]:
-        d = copy.deepcopy(self.__dict__)
-        d.pop("SessionID")
-
-        return d
+        self.ItemInHand: int | None = None  # Index of self.Items
 
     def GetDictionary_Player() -> dict[str, Any]:
         d = copy.deepcopy(self.__dict__)
-        d.pop("SessionID")
         d.pop("AuthHash")
 
         return d

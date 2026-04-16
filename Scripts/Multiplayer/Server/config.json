@@ -2,7 +2,7 @@
     "server": {
         "host": "0.0.0.0",
         "port": 65287,
-	"max_players": 1000
+        "max_players": 1000
     },
     "player_admin_tag": "admin"
 }
