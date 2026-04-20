@@ -3,7 +3,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_psebh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_psebh"]
-size = Vector3(0.5, 0.25, 0.25)
+size = Vector3(0.5, 0.25, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qi2x"]
 albedo_color = Color(0, 0, 0, 1)
@@ -16,7 +16,7 @@ metallic_specular = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_psebh")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=888063268]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2059077728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.375)
 mesh = SubResource("BoxMesh_psebh")
 surface_material_override/0 = SubResource("StandardMaterial3D_0qi2x")

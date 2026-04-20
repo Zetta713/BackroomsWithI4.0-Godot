@@ -120,6 +120,9 @@ static func SetPlayerScale(V: Vector3, AllowErrors: bool = true) -> void:
 static func SetCurrentLevel(Name: String, AllowErrors: bool = true) -> void:
 	MultiplayerConnection.SendAndReceive("set_lvl", [Name], AllowErrors)
 
+static func SetCrouched(Value: bool, AllowErrors: bool = true) -> void:
+	MultiplayerConnection.SendAndReceive("set_crouched", [Value], AllowErrors)
+
 static func GetAllPlayers(AllowErrors: bool = true) -> Array:
 	var players = MultiplayerConnection.SendAndReceive("get_all_players", [], AllowErrors)
 	

@@ -29,7 +29,7 @@ var LoadedMaps: Dictionary[int, Texture2D] = {}
 var PlayerSpawns: Array[Vector3] = []
 @export var PlayerDieFalling: bool = false
 @export var PlayerDieFallingDistance: float = 100
-var SpawnedMultiplayerPlayers: Dictionary[String, Node3D] = {}
+var SpawnedMultiplayerPlayers: Dictionary[String, MultiplayerCharacter] = {}
 
 @export_category("Other options")
 @export var Multiplayer: bool = true
@@ -221,7 +221,7 @@ func UpdateMultiplayer() -> void:
 			continue
 		
 		if (p["Username"] not in SpawnedMultiplayerPlayers):
-			var playerNodeInWorld = MULTIPLAYER_PLAYER_SKIN.instantiate()
+			var playerNodeInWorld: MultiplayerCharacter = MULTIPLAYER_PLAYER_SKIN.instantiate()
 			add_child(playerNodeInWorld)
 			
 			p["NodeInWorld"] = playerNodeInWorld
@@ -242,6 +242,8 @@ func UpdateMultiplayer() -> void:
 			p["Scale"][1],
 			p["Scale"][2]
 		)
+		SpawnedMultiplayerPlayers[p["Username"]].SetCrouched(p["Crouched"])
+		SpawnedMultiplayerPlayers[p["Username"]].SetNameTag(p["Username"])
 
 func _ready() -> void:
 	FNL.noise_type = FastNoiseLite.TYPE_PERLIN

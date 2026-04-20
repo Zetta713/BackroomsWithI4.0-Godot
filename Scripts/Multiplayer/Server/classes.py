@@ -97,14 +97,20 @@ class Player(GameEntity):
         super().__init__(ID, "PLAYER")
         self.Username: str = ""
         self.AuthHash: str | None = None
+
         self.CurrentLevel: str = ""
         self.Tags: list[str] = []
+
         self.Water: float = 100
         self.Food: float = 100
         self.Stamina: float = 100
+
         self.Groups: list[str] = []
+
         self.Items: list[str] = []
         self.ItemInHand: int | None = None  # Index of self.Items
+
+        self.Crouched: bool = False
 
     def GetDictionary_Player(self) -> dict[str, Any]:
         d = copy.deepcopy(self.__dict__)

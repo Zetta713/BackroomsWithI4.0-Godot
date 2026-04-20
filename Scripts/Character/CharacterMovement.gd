@@ -3,6 +3,8 @@ class_name CharacterMovement extends CharacterBody3D
 const INTERACTION_MAX_LENGTH: float = 5
 const INTERACTION_PARENT_LENGTH: int = 4
 var WHISTLING_SOUNDS: Array[AudioStream] = [load("res://Audio/Whistling 1.wav")]
+var INIT_SCALE_SKIN: Vector3 = Vector3.ZERO
+var INIT_SCALE_COLLIDER: Vector2 = Vector2.ZERO
 
 @export_category("Gravity")
 @export var GravityMultiplier: float = 1
@@ -102,6 +104,12 @@ func _ready() -> void:
 	JumpTimer.one_shot = true
 	JumpTimer.wait_time = 0.5 * clampf(GravityMultiplier, 0.001, 9999)
 	JumpTimer.start()
+	
+	INIT_SCALE_SKIN = $PlayerSkin.scale
+	INIT_SCALE_COLLIDER = Vector2(
+		$PlayerCollider.shape.radius,
+		$PlayerCollider.shape.height
+	)
 
 func _input(Event: InputEvent) -> void:
 	if (Event is InputEventMouseMotion && MouseCaptured):
@@ -149,6 +157,15 @@ func _physics_process(Delta: float) -> void:
 	if (Input.is_action_pressed("move_jump") && is_on_floor() && JumpTimer.is_stopped()):
 		velocity.y = JumpSpeed
 		JumpTimer.start()
+	
+	if (Input.is_action_pressed("toggle_crouch")):
+		$PlayerSkin.scale = Vector3(INIT_SCALE_SKIN.x, INIT_SCALE_SKIN.y / 2, INIT_SCALE_SKIN.z)
+		$PlayerCollider.shape.radius = INIT_SCALE_COLLIDER.x
+		$PlayerCollider.shape.height = INIT_SCALE_COLLIDER.y / 2
+	else:
+		$PlayerSkin.scale = INIT_SCALE_SKIN
+		$PlayerCollider.shape.radius = INIT_SCALE_COLLIDER.x
+		$PlayerCollider.shape.height = INIT_SCALE_COLLIDER.y
 	
 	var speed = 0
 	

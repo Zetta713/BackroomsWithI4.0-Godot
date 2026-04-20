@@ -98,6 +98,8 @@ async def ClientReceive(Socket: websockets.WebSocketServerProtocol, Data: str, P
         elif (action == "set_scl"):
             x, y, z = arguments[0], arguments[1], arguments[2]
             Player.Scale = (x, y, z)
+        elif (action == "set_crouched"):
+            Player.Crouched = arguments[0]
         elif (action == "set_lvl"):
             Player.CurrentLevel = arguments[0]
         elif (action == "get_lvls_data"):
