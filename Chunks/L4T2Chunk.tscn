@@ -19,7 +19,7 @@ emission_energy_multiplier = 2.0
 size = Vector2(10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xramr"]
-size = Vector3(10, 0.25, 10)
+size = Vector3(9.999, 0.25, 9.999)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_840bg"]
 size = Vector3(10, 0.01, 10)
@@ -52,7 +52,7 @@ ChunkSide = 1
 ObjectsToActivate = [NodePath(".")]
 
 [node name="Lights" type="Node3D" parent="." unique_id=479616247]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.874, 0)
 
 [node name="Light" type="Node3D" parent="Lights" unique_id=2090279209 node_paths=PackedStringArray("ObjectsToActivate")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, 0, 3.125)
@@ -136,7 +136,7 @@ cast_shadow = 0
 mesh = SubResource("PlaneMesh_psx24")
 
 [node name="Ceiling" type="MeshInstance3D" parent="." unique_id=2116568729]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.876, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 material_override = ExtResource("5_3yb0d")
 mesh = SubResource("BoxMesh_xramr")
 

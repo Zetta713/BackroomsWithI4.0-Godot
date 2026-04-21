@@ -48,6 +48,16 @@ A Backrooms simulator with [I4.0](https://github.com/TAO71-AI/I4.0-NEW) integrat
 		- [ ] Text chat
 		- [ ] Voice chat (proximity chat)
 			- [ ] Voice filters
+    - Noise maps
+        - [ ] Level 0 (x1)
+        - [ ] Level 1 (x3)
+        - [ ] Level 2 (x6)
+        - [ ] Level 3 (UNKNOWN)
+        - [ ] Level 4 (x3)
+        - [ ] Level 5 (UNKNOWN)
+        - [ ] Level 6 (UNKNOWN)
+        - [ ] Level 7 (UNKNOWN)
+        - [ ] Level 8 (UNKNOWN)
 
 ## Tools used
 

@@ -209,6 +209,9 @@ func SpawnPlayer() -> void:
 	Player.Spawned = true
 
 func UpdateMultiplayer() -> void:
+	if (!Multiplayer):
+		return
+	
 	MultiplayerConnection.SetCurrentLevel(LevelName)
 	MultiplayerConnection.SetPlayerPosition(Player.global_position)
 	MultiplayerConnection.SetPlayerRotation(Player.global_rotation)
