@@ -15,6 +15,9 @@ var ItemInHand: Node3D = null
 var IsMoving: bool = false
 var LastPosition: Vector3 = Vector3.ZERO
 
+@export_category("Sound")
+var Sounds: Dictionary[String, AudioStreamPlayer3D] = {}
+
 func SetCrouched(Value: bool) -> void:
 	for element in StandingElements:
 		if (element is CollisionShape3D):
@@ -48,6 +51,24 @@ func SetItemInHand(Item: PackedScene) -> void:
 
 func SetNameTag(Name: String) -> void:
 	NameTag.text = Name
+
+func PlaySound(Type: String, Sound: AudioStream) -> void:
+	if (Type not in Sounds):
+		Sounds[Type] = null
+	
+	if (Sounds[Type] == null):
+		var player = AudioStreamPlayer3D.new()
+		player.autoplay = false
+		player.doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
+		add_child(player)
+		
+		Sounds[Type] = player
+	
+	if (Sounds[Type].playing):
+		return
+	
+	Sounds[Type].stream = Sound
+	Sounds[Type].play()
 
 func UpdateParameters() -> void:
 	IsMoving = global_position != LastPosition

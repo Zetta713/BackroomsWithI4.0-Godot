@@ -1,5 +1,83 @@
 {
-    "Worlds": [],
+    "Worlds": [
+        {
+            "Name": "Level 0",
+            "NoiseMaps": null,
+            "Seed": 1476111396,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 1",
+            "NoiseMaps": null,
+            "Seed": 886433597,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 2",
+            "NoiseMaps": null,
+            "Seed": 1002328607,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 3",
+            "NoiseMaps": null,
+            "Seed": 1560560400,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 4",
+            "NoiseMaps": null,
+            "Seed": 1436936622,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 5",
+            "NoiseMaps": null,
+            "Seed": 1376672689,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 6",
+            "NoiseMaps": null,
+            "Seed": 971277096,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 7",
+            "NoiseMaps": null,
+            "Seed": 1569291517,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 8",
+            "NoiseMaps": null,
+            "Seed": 1474245844,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level 9",
+            "NoiseMaps": null,
+            "Seed": 236084831,
+            "ChunkData": [],
+            "__type__": "Map"
+        },
+        {
+            "Name": "Level The Hub",
+            "NoiseMaps": null,
+            "Seed": 1852848707,
+            "ChunkData": [],
+            "__type__": "Map"
+        }
+    ],
     "Players": [],
     "Objects": [],
     "ChatMessages": [],

@@ -165,6 +165,9 @@ class Player(GameEntity):
         # Crouched
         self.Crouched: bool = False
 
+        # Sounds
+        self.Whistle: str | None = None
+
     def GetDictionary_Player(self) -> dict[str, Any]:
         d = super().GetDictionary_Player()
         d.pop("AuthHash")

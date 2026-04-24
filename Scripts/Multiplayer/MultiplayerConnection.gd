@@ -123,6 +123,15 @@ static func SetCurrentLevel(Name: String, AllowErrors: bool = true) -> void:
 static func SetCrouched(Value: bool, AllowErrors: bool = true) -> void:
 	MultiplayerConnection.SendAndReceive("set_crouched", [Value], AllowErrors)
 
+static func SetWhistle(Value: Variant, AllowErrors: bool = true) -> void:
+	if (Value is AudioStream):
+		Value = Value.resource_path
+	elif (Value is not String and Value != null):
+		push_error("Invalid value type for audio.")
+		return
+	
+	MultiplayerConnection.SendAndReceive("set_whistle", [Value], AllowErrors)
+
 static func GetAllPlayers(AllowErrors: bool = true) -> Array:
 	var players = MultiplayerConnection.SendAndReceive("get_all_players", [], AllowErrors)
 	

@@ -15,9 +15,11 @@ class BaseData():
 
         for k, v in d.items():
             if (isinstance(v, list)):
-                d[k] = [i.ToDict() if (hasattr(i, "ToDict")) else i for i in v]
+                d[k] = [i.ToDict() if (hasattr(i, "ToDict")) else i.GetDictionary_Save() if (hasattr(i, "GetDictionary_Save")) else i for i in v]
             elif (hasattr(v, "ToDict")):
                 d[k] = v.ToDict()
+            elif (hasattr(v, "GetDictionary_Save")):
+                d[k] = v.GetDictionary_Save()
 
         return d
     
@@ -46,7 +48,19 @@ class Config(BaseData):
 
 class Info(BaseData):
     def __init__(self) -> None:
-        self.Worlds: list[classes.Map] = []
+        self.Worlds: list[classes.Map] = [
+            classes.Map("Level 0", -1),
+            classes.Map("Level 1", -1),
+            classes.Map("Level 2", -1),
+            classes.Map("Level 3", -1),
+            classes.Map("Level 4", -1),
+            classes.Map("Level 5", -1),
+            classes.Map("Level 6", -1),
+            classes.Map("Level 7", -1),
+            classes.Map("Level 8", -1),
+            classes.Map("Level 9", -1),
+            classes.Map("Level The Hub", -1)
+        ]
         self.Players: list[classes.Player] = []
         self.Objects: list[classes.Item] = []
         self.ChatMessages: list[classes.ChatMessage] = []
