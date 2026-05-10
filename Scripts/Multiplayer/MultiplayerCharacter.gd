@@ -52,34 +52,33 @@ func SetItemInHand(Item: PackedScene) -> void:
 func SetNameTag(Name: String) -> void:
 	NameTag.text = Name
 
-func PlaySound(Type: String, Sound: Variant) -> void:
-	if (Type not in Sounds):
-		Sounds[Type] = null
-	
-	if (Sounds[Type] == null):
-		var player = AudioStreamPlayer3D.new()
-		player.autoplay = false
-		player.doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
-		add_child(player)
-		
-		Sounds[Type] = player
-	
-	if (Sound is String && ResourceLoader.exists(Sound)):
-		Sound = load(Sound)
-	elif (Sound == null):
-		return
-	elif (Sound is not AudioStream):
-		push_error("Invalid sound data type.")
+func PlaySound(Type: String, Sound: AudioStream) -> void:
+	if (Type not in Sounds || Sounds[Type] == null || Sound == null):
 		return
 	
 	if (Sounds[Type].playing && Sounds[Type].stream == Sound):
 		return
 	elif (Sounds[Type].playing):
-		Sounds[Type].stop()
+		StopSound(Type)
+	
+	if (!Sounds[Type].finished.is_connected(StopSound)):
+		Sounds[Type].finished.connect(StopSound.bind(Type))
+	
+	print("Playing sound.")
 	
 	Sounds[Type].stream = Sound
 	Sounds[Type].play()
 
+func StopSound(Type: String) -> void:
+	if (Type not in Sounds || Sounds[Type] == null):
+		return
+	
+	Sounds[Type].stop()
+	Sounds[Type].stream = null
+
 func UpdateParameters() -> void:
 	IsMoving = global_position != LastPosition
 	LastPosition = global_position
+
+func _init() -> void:
+	Sounds = Globals.CreateSoundPlayers(false, self)

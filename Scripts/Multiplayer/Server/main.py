@@ -103,10 +103,8 @@ async def ClientReceive(Socket: WSConnection, Data: str, Player: classes.Player)
             Player.Crouched = arguments[0]
         elif (action == "set_lvl"):
             Player.CurrentLevel = arguments[0]
-        elif (action == "set_whistle_sound"):
-            Player.WhistleSound = arguments[0]
-        elif (action == "set_walking_sound"):
-            Player.WalkingSound = arguments[0]
+        elif (action == "set_sounds"):
+            Player.Sounds = arguments[0]
         elif (action == "get_lvls_data"):
             result_args.append([lvl.GetDictionary_Player() for lvl in INFO.Worlds])
         elif (action == "get_all_players"):
@@ -181,10 +179,13 @@ async def __start_server__() -> None:
         host = CONFIG.Server["Host"],
         port = CONFIG.Server["Port"],
         max_size = 8192,
-        ssl = None
+        ssl = None  # TODO: Add SSL
     )
     ServerStarted = True
     print(f"Server started at '{CONFIG.Server['Host']}:{CONFIG.Server['Port']}'.", flush = True)
+
+    if (True):  # TODO: Change to SSL
+        print(f"WARNING! SSL is not configured. This will NOT encrypt the connection! Please, use a valid SSL certificate.")
 
     while (ServerStarted):
         await asyncio.sleep(0.1)

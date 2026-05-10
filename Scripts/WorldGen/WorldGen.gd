@@ -245,9 +245,15 @@ func UpdateMultiplayer() -> void:
 		)
 		SpawnedMultiplayerPlayers[p["Username"]].SetCrouched(p["Crouched"])
 		SpawnedMultiplayerPlayers[p["Username"]].SetNameTag(p["Username"])
-		SpawnedMultiplayerPlayers[p["Username"]].PlaySound("Whistle", p["WhistleSound"])
-		SpawnedMultiplayerPlayers[p["Username"]].PlaySound("Walk", p["WalkingSound"])
 		SpawnedMultiplayerPlayers[p["Username"]].UpdateParameters()
+		
+		for sound in p["Sounds"]:
+			var soundStream = Globals.ParseSound(sound)
+			
+			if (soundStream[1] == null):
+				continue
+			
+			SpawnedMultiplayerPlayers[p["Username"]].PlaySound(soundStream[0], soundStream[1])
 
 func _ready() -> void:
 	FNL.noise_type = FastNoiseLite.TYPE_PERLIN

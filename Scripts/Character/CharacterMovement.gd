@@ -41,6 +41,7 @@ var InventoryItems: Array[InventoryItem] = []
 
 @export_category("Sound")
 var Sounds: Dictionary[String, AudioStreamPlayer3D] = {}
+var MultiplayerSounds: Array[Globals.SoundID] = []
 var WhistleSound: AudioStream = null
 var WalkingSound: AudioStream = null
 
@@ -62,33 +63,33 @@ func __cast_ray__(From: Vector3, Direction: Vector3, Length: float) -> Collision
 	
 	return null
 
-func PlaySound(Type: String, Sound: Variant) -> void:
-	if (Type not in Sounds):
-		Sounds[Type] = null
-	
-	if (Sounds[Type] == null):
-		var player = AudioStreamPlayer3D.new()
-		player.autoplay = false
-		player.doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
-		add_child(player)
-		
-		Sounds[Type] = player
-	
-	if (Sound is String && ResourceLoader.exists(Sound)):
-		Sound = load(Sound)
-	elif (Sound == null):
-		return
-	elif (Sound is not AudioStream):
-		push_error("Invalid sound data type.")
+func PlaySound(Type: String, Sound: AudioStream, ID: Globals.SoundID) -> void:
+	if (Type not in Sounds || Sounds[Type] == null || Sound == null):
 		return
 	
 	if (Sounds[Type].playing && Sounds[Type].stream == Sound):
 		return
 	elif (Sounds[Type].playing):
-		Sounds[Type].stop()
+		StopSound(Type, ID)
+	
+	if (ID not in MultiplayerSounds):
+		MultiplayerSounds.append(ID)
+	
+	if (!Sounds[Type].finished.is_connected(StopSound)):
+		Sounds[Type].finished.connect(StopSound.bind(Type, ID))
 	
 	Sounds[Type].stream = Sound
 	Sounds[Type].play()
+
+func StopSound(Type: String, ID: Globals.SoundID) -> void:
+	if (ID in MultiplayerSounds):
+		MultiplayerSounds.erase(ID)
+	
+	if (Type not in Sounds || Sounds[Type] == null):
+		return
+	
+	Sounds[Type].stop()
+	Sounds[Type].stream = null
 
 func Die() -> void:
 	print("Dead")  # TODO
@@ -134,8 +135,10 @@ func UpdateMultiplayer() -> void:
 	MultiplayerConnection.SetPlayerPosition(global_position)
 	MultiplayerConnection.SetPlayerRotation(global_rotation)
 	MultiplayerConnection.SetPlayerScale(scale)
-	MultiplayerConnection.SetWalkingSound("" if (WalkingSound == null) else WalkingSound.resource_path)
-	MultiplayerConnection.SetWhistleSound("" if (WhistleSound == null) else WhistleSound.resource_path)
+	MultiplayerConnection.SetSounds(MultiplayerSounds)
+
+func _init() -> void:
+	Sounds = Globals.CreateSoundPlayers(true, self)
 
 func _ready() -> void:
 	add_child(JumpTimer)
@@ -164,7 +167,7 @@ func _process(Delta: float) -> void:
 	
 	if (Input.is_action_just_pressed("act_whistling") && MouseCaptured):
 		WhistleSound = WHISTLING_SOUNDS[randi() % WHISTLING_SOUNDS.size()]
-		PlaySound("Whistle", WhistleSound)
+		PlaySound("Whistle", WhistleSound, Globals.SoundID.WHISTLE_1)
 	
 	if (MouseCaptured):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

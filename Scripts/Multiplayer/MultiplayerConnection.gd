@@ -126,11 +126,8 @@ static func SetRunning(Value: bool, AllowErrors: bool = true) -> void:
 static func SetCrouched(Value: bool, AllowErrors: bool = true) -> void:
 	MultiplayerConnection.SendAndReceive("set_crouched", [Value], AllowErrors)
 
-static func SetWhistleSound(Value: String, AllowErrors: bool = true) -> void:
-	MultiplayerConnection.SendAndReceive("set_whistle_sound", [null if (Value.length()) else Value], AllowErrors)
-
-static func SetWalkingSound(Value: String, AllowErrors: bool = true) -> void:
-	MultiplayerConnection.SendAndReceive("set_walking_sound", [null if (Value.length()) else Value], AllowErrors)
+static func SetSounds(Value: Array[Globals.SoundID], AllowErrors: bool = true) -> void:
+	MultiplayerConnection.SendAndReceive("set_sounds", [Value], AllowErrors)
 
 static func GetAllPlayers(AllowErrors: bool = true) -> Array:
 	var players = MultiplayerConnection.SendAndReceive("get_all_players", [], AllowErrors)

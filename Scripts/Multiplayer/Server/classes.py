@@ -115,8 +115,7 @@ class Player(GameEntity):
         self.ItemInHand: int | None = None  # Index of self.Items
 
         # Sounds
-        self.WhistleSound: str | None = None
-        self.WalkingSound: str | None = None
+        self.Sounds: list[int] = []
 
     def GetDictionary_Player(self, IsSelf: bool) -> dict[str, Any]:
         d = super().GetDictionary_Player()
@@ -130,16 +129,13 @@ class Player(GameEntity):
             d.pop("Health")
             d.pop("Stamina")
             d.pop("Items")
-        else:
-            d.pop("WhistleSound")
-            d.pop("WalkingSound")
+            d.pop("Sounds")
         
         return d
     
     def GetDictionary_Save(self):
         d = super().GetDictionary_Save()
-        d.pop("WhistleSound")
-        d.pop("WalkingSound")
+        #d.pop("Sounds")
 
         return d
 

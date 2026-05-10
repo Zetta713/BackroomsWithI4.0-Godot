@@ -6,14 +6,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yg3f5"]
 radius = 0.45
 
-[node name="Player" type="CharacterBody3D" unique_id=632983521 node_paths=PackedStringArray("Head", "AudioSource")]
+[node name="Player" type="CharacterBody3D" unique_id=632983521 node_paths=PackedStringArray("Head")]
 script = ExtResource("1_x3d5u")
 StaminaRecover = 10.0
 Head = NodePath("Camera3D")
-AudioSource = NodePath("AudioStreamPlayer3D")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1256130155]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.15)
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D" unique_id=1472996809]
 
