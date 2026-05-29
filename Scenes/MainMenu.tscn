@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://upk3pgwp2pnb"]
 
-[ext_resource type="Script" uid="uid://ba1jv1aiwc8mr" path="res://Scripts/ConfigManager.gd" id="1_853f1"]
+[ext_resource type="Script" path="res://Scripts/ConfigManager.gd" id="1_853f1"]
 [ext_resource type="VideoStream" uid="uid://dify0hp4kgbv2" path="res://Video/MainMenu.ogv" id="1_tt5f1"]
 
 [node name="MainMenu" type="Control" unique_id=149137781]

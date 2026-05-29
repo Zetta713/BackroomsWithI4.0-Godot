@@ -110,23 +110,24 @@ static func LoadConfig(ConfigPath: String = "[$GAME_CONFIG]/config.json", SetGlo
 	
 	return instance
 
-func __save_config_parser__(Properties: Dictionary) -> Dictionary[String, Variant]:
+func __save_config_parser__(Properties: Dictionary, Obj: Object = null) -> Dictionary:
+	var ctx = self if (Obj == null) else Obj
 	var json = {}
 	
 	for propName in Properties.keys():
-		var propValue = get(propName)
+		var propValue = ctx.get(propName)
 		
-		if (typeof(propValue) not in [TYPE_NIL, TYPE_BOOL] && "get_property_list" in propValue):
-			var properties2 = propValue.get_property_list()
-			var json2 = {}
+		if (propValue is Node || (propValue is Object && propValue is not Resource)):
+			continue
+		
+		if (typeof(propValue) == TYPE_OBJECT && propValue.has_method("get_property_list")):
+			var subProps = {}
 			
-			for prop2 in properties2:
-				var prop2Name = prop2["name"]
-				var prop2Value = get(prop2Name)
-				
-				json2[prop2Name] = prop2Value
+			for p in propValue.get_property_list():
+				if ((p["usage"] & PROPERTY_USAGE_STORAGE) && !p["name"].begins_with("_")):
+					subProps[p["name"]] = true
 			
-			json[propName] = __save_config_parser__(json2)
+			json[propName] = __save_config_parser__(subProps, propValue)
 		else:
 			json[propName] = propValue
 	
