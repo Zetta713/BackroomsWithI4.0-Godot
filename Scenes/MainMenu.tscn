@@ -4,6 +4,7 @@
 [ext_resource type="VideoStream" uid="uid://dify0hp4kgbv2" path="res://Video/MainMenu.ogv" id="1_tt5f1"]
 [ext_resource type="Script" uid="uid://cqlahu55orylb" path="res://Scripts/MainMenu.gd" id="2_ghw46"]
 [ext_resource type="Script" uid="uid://f7xo621spsj2" path="res://Scripts/SetLabelValue.gd" id="3_8saeu"]
+[ext_resource type="FontFile" uid="uid://bajsv1yybayep" path="res://Fonts/BetterVCR 25.09.ttf" id="4_df05h"]
 
 [node name="MainMenu" type="Control" unique_id=149137781]
 layout_mode = 3
@@ -65,16 +66,22 @@ tooltip_text = "NOTE:
 This game is still in development. Since most levels doesn't have any exits yet, this will take you to The Hub (level selector).
 
 Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error."
+
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_PLAY"
 
 [node name="Options" type="Button" parent="VBoxContainer" unique_id=68935362]
 layout_mode = 2
 size_flags_vertical = 3
+
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_OPTIONS"
 
 [node name="Credits" type="Button" parent="VBoxContainer" unique_id=2038905072]
 layout_mode = 2
 size_flags_vertical = 3
+
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_CREDITS"
 
 [node name="Exit" type="Button" parent="VBoxContainer" unique_id=1426430398]
@@ -100,6 +107,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="PanelContainer/Options" unique_id=1790443144]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_df05h")
 current_tab = 0
 
 [node name="TAB_GRAPHICS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=475599867]
@@ -115,6 +123,8 @@ Performance impact: High"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1628722076]
 layout_mode = 2
+
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_VIEW_DISTANCE"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1453724312]
@@ -130,6 +140,7 @@ rounded = true
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider" unique_id=566133038 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -141,6 +152,8 @@ metadata/_tab_index = 1
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND" unique_id=1152162224]
 layout_mode = 2
+
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_SOUND_NOCONFIG"
 
 [node name="TAB_CONTROLS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1235675205]
@@ -156,6 +169,7 @@ Performance impact: None"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1433975125]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_MOUSESENS"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1173527333]
@@ -171,6 +185,7 @@ value = 1.5
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility/Slider" unique_id=566627232 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -189,6 +204,7 @@ Performance impact: Low"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=298324381]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_MAP_UPDATE"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=1036126745]
@@ -203,6 +219,7 @@ value = 2.0
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time/Slider" unique_id=431148799 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -220,6 +237,7 @@ Performace impact: None"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=1664619760]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_MULTIPLAYER_SERVER"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=871731722]
@@ -229,6 +247,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "main.tao71.org"
 placeholder_text = "Host"
 
@@ -239,6 +258,7 @@ text = ":"
 [node name="Port" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider" unique_id=1896998876]
 custom_minimum_size = Vector2(80, 38)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "65287"
 placeholder_text = "Port"
 emoji_menu_enabled = false
@@ -252,6 +272,7 @@ Performance impact: None"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1802256849]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_MULTIPLAYER_SYNC"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1009457711]
@@ -266,6 +287,7 @@ value = 0.1
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time/Slider" unique_id=446206087 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -281,12 +303,14 @@ Performance impact: None"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1315451371]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_USERNAME"
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1721639203]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_df05h")
 placeholder_text = "Your username here"
 
 [node name="Password" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER" unique_id=1572380700]
@@ -302,12 +326,14 @@ Performance impact: None"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1580570871]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_PASSWORD"
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1413463996]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_df05h")
 placeholder_text = "Your password here"
 
 [node name="TAB_I40" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1026671379]
@@ -317,10 +343,12 @@ metadata/_tab_index = 5
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_I40" unique_id=2087109437]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_I4.0_NOCONFIG"
 
 [node name="Save" type="Button" parent="PanelContainer/Options" unique_id=690432085]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_SAVE_CONFIG"
 
 [node name="Credits" type="Control" parent="PanelContainer" unique_id=513204999]
