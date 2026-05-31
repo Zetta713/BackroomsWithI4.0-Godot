@@ -66,27 +66,25 @@ tooltip_text = "NOTE:
 This game is still in development. Since most levels doesn't have any exits yet, this will take you to The Hub (level selector).
 
 Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error."
-
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_PLAY"
 
 [node name="Options" type="Button" parent="VBoxContainer" unique_id=68935362]
 layout_mode = 2
 size_flags_vertical = 3
-
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_OPTIONS"
 
 [node name="Credits" type="Button" parent="VBoxContainer" unique_id=2038905072]
 layout_mode = 2
 size_flags_vertical = 3
-
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_CREDITS"
 
 [node name="Exit" type="Button" parent="VBoxContainer" unique_id=1426430398]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_EXIT"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=906972168]
@@ -123,7 +121,6 @@ Performance impact: High"
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1628722076]
 layout_mode = 2
-
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_VIEW_DISTANCE"
 
@@ -152,7 +149,6 @@ metadata/_tab_index = 1
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND" unique_id=1152162224]
 layout_mode = 2
-
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "LBL_SOUND_NOCONFIG"
 
