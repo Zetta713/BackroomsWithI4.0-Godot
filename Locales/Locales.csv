@@ -1,0 +1,25 @@
+REF_TXT,en,es,it,ja
+BTN_PLAY,Play,Jugar,,
+BTN_OPTIONS,Options,Opciones,,
+BTN_CREDITS,Credits,Créditos,,
+BTN_EXIT,Exit,Salir,,
+TAB_GRAPHICS,Graphics,Gráficos,,
+LBL_VIEW_DISTANCE,View Distance,Distancia de visión,,
+TAB_SOUND,Sound,Sonido,,
+LBL_SOUND_NOCONFIG,No sound configuration yet.,No hay configuración de sonido aún.,,
+TAB_CONTROLS,Controls,Controles,,
+LBL_MOUSESENS,Mouse sensibility,Sensibilidad del ratón,,
+TAB_GAME,Game,Juego,,
+LBL_MAP_UPDATE,Map update time,Tiempo de actualización del mapa,,
+TAB_MULTIPLAYER,Multiplayer,Multijugador,,
+LBL_MULTIPLAYER_SERVER,Multiplayer server,Servidor multijugador,,
+LBL_MULTIPLAYER_SYNC,Multiplayer sync time,Tiempo de sincronización del multijugador,,
+LBL_USERNAME,Username,Nombre de usuario,,
+LBL_PASSWORD,Password,Contraseña,,
+TAB_I40,I4_0,I4_0,,
+LBL_I4.0_NOCONFIG,No I4.0 configuration yet.,No hay configuración de I4.0 aún.,,
+TT_BTN_PLAY,"NOTE:
+This game is still in development. Since most levels doesn’t have any exits yet, this will take you to The Hub (level selector).
+
+Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error.",,,
+BTN_SAVE_CONFIG,Save,Guardar,,

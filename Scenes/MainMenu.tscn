@@ -21,14 +21,14 @@ size_flags_vertical = 3
 [node name="ConfigManager" type="Node" parent="Scripts" unique_id=749585586 node_paths=PackedStringArray("GUI_Elements")]
 script = ExtResource("1_853f1")
 GUI_Elements = {
-"GenerationTime": NodePath("../../PanelContainer/Options/TabContainer/Game/Map update time/Slider/HSlider"),
-"Multiplayer_Host": NodePath("../../PanelContainer/Options/TabContainer/Multiplayer/Server/Slider/Host"),
-"Multiplayer_Port": NodePath("../../PanelContainer/Options/TabContainer/Multiplayer/Server/Slider/Port"),
-"Multiplayer_UpdateTime": NodePath("../../PanelContainer/Options/TabContainer/Multiplayer/Sync time/Slider/HSlider"),
-"Sensibility": NodePath("../../PanelContainer/Options/TabContainer/Controls/Mouse sensibility/Slider/HSlider"),
-"User_Password": NodePath("../../PanelContainer/Options/TabContainer/Multiplayer/Password/TextEdit"),
-"User_Username": NodePath("../../PanelContainer/Options/TabContainer/Multiplayer/Username/TextEdit"),
-"ViewDistance": NodePath("../../PanelContainer/Options/TabContainer/Graphics/View distance/Slider/HSlider")
+"GenerationTime": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/Map update time/Slider/HSlider"),
+"Multiplayer_Host": NodePath("../../PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider/Host"),
+"Multiplayer_Port": NodePath("../../PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider/Port"),
+"Multiplayer_UpdateTime": NodePath("../../PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time/Slider/HSlider"),
+"Sensibility": NodePath("../../PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility/Slider/HSlider"),
+"User_Password": NodePath("../../PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password/TextEdit"),
+"User_Username": NodePath("../../PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username/TextEdit"),
+"ViewDistance": NodePath("../../PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider/HSlider")
 }
 
 [node name="MainMenu" type="Node" parent="Scripts" unique_id=1672166350 node_paths=PackedStringArray("SidePanelGUI", "OptionsGUI", "CreditsGUI")]
@@ -66,20 +66,28 @@ tooltip_text = "NOTE:
 This game is still in development. Since most levels doesn't have any exits yet, this will take you to The Hub (level selector).
 
 Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error."
+
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Play"
+text = "BTN_PLAY"
 
 [node name="Options" type="Button" parent="VBoxContainer" unique_id=68935362]
 layout_mode = 2
 size_flags_vertical = 3
+
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Options"
+text = "BTN_OPTIONS"
 
 [node name="Credits" type="Button" parent="VBoxContainer" unique_id=2038905072]
 layout_mode = 2
 size_flags_vertical = 3
+
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Credits"
+text = "BTN_CREDITS"
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=1426430398]
+layout_mode = 2
+size_flags_vertical = 3
+text = "BTN_EXIT"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=906972168]
 visible = false
@@ -102,26 +110,27 @@ size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("4_df05h")
 current_tab = 0
 
-[node name="Graphics" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=475599867]
+[node name="TAB_GRAPHICS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=475599867]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="View distance" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Graphics" unique_id=1166238926]
+[node name="View distance" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS" unique_id=1166238926]
 layout_mode = 2
 tooltip_text = "Radius where the chunks will render.
 Big values will require more CPU, GPU, RAM, and will take longer to load the level.
 
 Performance impact: High"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Graphics/View distance" unique_id=1628722076]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1628722076]
 layout_mode = 2
+
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "View distance"
+text = "LBL_VIEW_DISTANCE"
 
-[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/Graphics/View distance" unique_id=1453724312]
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1453724312]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/Graphics/View distance/Slider" unique_id=794077893]
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider" unique_id=794077893]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 10.0
@@ -129,43 +138,44 @@ max_value = 500.0
 value = 30.0
 rounded = true
 
-[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/Graphics/View distance/Slider" unique_id=566133038 node_paths=PackedStringArray("Sl")]
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider" unique_id=566133038 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
 
-[node name="Sound" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1242150788]
+[node name="TAB_SOUND" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1242150788]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Sound" unique_id=1152162224]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND" unique_id=1152162224]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_df05h")
-text = "No sound configuration yet."
 
-[node name="Controls" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1235675205]
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "LBL_SOUND_NOCONFIG"
+
+[node name="TAB_CONTROLS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1235675205]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Mouse sensibility" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Controls" unique_id=715289006]
+[node name="Mouse sensibility" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS" unique_id=715289006]
 layout_mode = 2
 tooltip_text = "This affect how fast the camera moves.
 
 Performance impact: None"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Controls/Mouse sensibility" unique_id=1433975125]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1433975125]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Mouse sensibility"
+text = "LBL_MOUSESENS"
 
-[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/Controls/Mouse sensibility" unique_id=1173527333]
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1173527333]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/Controls/Mouse sensibility/Slider" unique_id=1277420066]
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility/Slider" unique_id=1277420066]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 0.1
@@ -173,67 +183,67 @@ max_value = 10.0
 step = 0.1
 value = 1.5
 
-[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/Controls/Mouse sensibility/Slider" unique_id=566627232 node_paths=PackedStringArray("Sl")]
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility/Slider" unique_id=566627232 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
 
-[node name="Game" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1848517393]
+[node name="TAB_GAME" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1848517393]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Map update time" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Game" unique_id=2042669863]
+[node name="Map update time" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME" unique_id=2042669863]
 layout_mode = 2
 tooltip_text = "This affects how much the map will update.
 Smaller values will require more CPU, but might reduce frame drops.
 
 Performance impact: Low"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Game/Map update time" unique_id=298324381]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=298324381]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Map update time"
+text = "LBL_MAP_UPDATE"
 
-[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/Game/Map update time" unique_id=1036126745]
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=1036126745]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/Game/Map update time/Slider" unique_id=1484885818]
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time/Slider" unique_id=1484885818]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 5.0
 step = 0.01
 value = 2.0
 
-[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/Game/Map update time/Slider" unique_id=431148799 node_paths=PackedStringArray("Sl")]
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time/Slider" unique_id=431148799 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
 
-[node name="Multiplayer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1411616556]
+[node name="TAB_MULTIPLAYER" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1411616556]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="Server" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer" unique_id=1985408275]
+[node name="Server" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER" unique_id=1985408275]
 layout_mode = 2
 tooltip_text = "Server to connect to in the multiplayer.
 
 Performace impact: None"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Server" unique_id=1664619760]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=1664619760]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Multiplayer server"
+text = "LBL_MULTIPLAYER_SERVER"
 
-[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer/Server" unique_id=871731722]
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=871731722]
 layout_mode = 2
 
-[node name="Host" type="TextEdit" parent="PanelContainer/Options/TabContainer/Multiplayer/Server/Slider" unique_id=1536775841]
+[node name="Host" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider" unique_id=1536775841]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -241,11 +251,11 @@ theme_override_fonts/font = ExtResource("4_df05h")
 text = "main.tao71.org"
 placeholder_text = "Host"
 
-[node name="Sep" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Server/Slider" unique_id=1244010191]
+[node name="Sep" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider" unique_id=1244010191]
 layout_mode = 2
 text = ":"
 
-[node name="Port" type="TextEdit" parent="PanelContainer/Options/TabContainer/Multiplayer/Server/Slider" unique_id=1896998876]
+[node name="Port" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server/Slider" unique_id=1896998876]
 custom_minimum_size = Vector2(80, 38)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
@@ -253,36 +263,36 @@ text = "65287"
 placeholder_text = "Port"
 emoji_menu_enabled = false
 
-[node name="Sync time" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer" unique_id=220875713]
+[node name="Sync time" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER" unique_id=220875713]
 layout_mode = 2
 tooltip_text = "Velocity when the multiplayer will be updated. If 0, it will update for each frame.
 Smaller values might require a better internet connection, but will look more smooth.
 
 Performance impact: None"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Sync time" unique_id=1802256849]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1802256849]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Multiplayer sync time"
+text = "LBL_MULTIPLAYER_SYNC"
 
-[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer/Sync time" unique_id=1009457711]
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1009457711]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/Multiplayer/Sync time/Slider" unique_id=925646147]
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time/Slider" unique_id=925646147]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 0.1
 
-[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Sync time/Slider" unique_id=446206087 node_paths=PackedStringArray("Sl")]
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time/Slider" unique_id=446206087 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
 
-[node name="Username" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer" unique_id=2117010615]
+[node name="Username" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER" unique_id=2117010615]
 layout_mode = 2
 tooltip_text = "Username for the multiplayer.
 
@@ -291,19 +301,19 @@ Must not be empty nor larger than 15 characters.
 
 Performance impact: None"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Username" unique_id=1315451371]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1315451371]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Username"
+text = "LBL_USERNAME"
 
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/Multiplayer/Username" unique_id=1721639203]
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1721639203]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("4_df05h")
 placeholder_text = "Your username here"
 
-[node name="Password" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/Multiplayer" unique_id=1572380700]
+[node name="Password" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER" unique_id=1572380700]
 layout_mode = 2
 tooltip_text = "Password for the multiplayer.
 
@@ -314,32 +324,32 @@ Must not be empty, at least 8 characters, and not larger than 60 characters.
 
 Performance impact: None"
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/Multiplayer/Password" unique_id=1580570871]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1580570871]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Password"
+text = "LBL_PASSWORD"
 
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/Multiplayer/Password" unique_id=1413463996]
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1413463996]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("4_df05h")
 placeholder_text = "Your password here"
 
-[node name="I4_0" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1026671379]
+[node name="TAB_I40" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1026671379]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/I4_0" unique_id=2087109437]
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_I40" unique_id=2087109437]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "No I4.0 configuration yet."
+text = "LBL_I4.0_NOCONFIG"
 
 [node name="Save" type="Button" parent="PanelContainer/Options" unique_id=690432085]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
-text = "Save"
+text = "BTN_SAVE_CONFIG"
 
 [node name="Credits" type="Control" parent="PanelContainer" unique_id=513204999]
 visible = false
