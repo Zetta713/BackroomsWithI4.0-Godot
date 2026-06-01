@@ -129,3 +129,130 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_javds")
 step = 0.0
 value = 50.0
 rounded = true
+
+[node name="Phone" type="Control" parent="GUI" unique_id=923565049]
+layout_mode = 1
+anchor_left = 0.7986111
+anchor_top = 0.30864197
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="BG" type="Panel" parent="GUI/Phone" unique_id=783225992]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Screen" type="Control" parent="GUI/Phone" unique_id=1479648982]
+anchors_preset = 0
+anchor_left = 0.04310345
+anchor_top = 0.03348214
+anchor_right = 0.95689654
+anchor_bottom = 0.89285713
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="GUI/Phone/Screen" unique_id=111503706]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Desktop" type="Control" parent="GUI/Phone/Screen" unique_id=2094572431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wallpaper" type="TextureRect" parent="GUI/Phone/Screen/Desktop" unique_id=606203111]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Apps" type="GridContainer" parent="GUI/Phone/Screen/Desktop" unique_id=1863935698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="I40" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=1454312449]
+layout_mode = 2
+text = "APP_I4.0"
+
+[node name="I40 App" type="Control" parent="GUI/Phone/Screen" unique_id=1046761840]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="GUI/Phone/Screen/I40 App" unique_id=515620357]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19562104, 0.21670997, 0.5840503, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App" unique_id=2035504993]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message area" type="ScrollContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer" unique_id=577219193]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Message area" unique_id=363176116]
+layout_mode = 2
+
+[node name="Prompt area" type="PanelContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer" unique_id=1480441698]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area" unique_id=1004568675]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=1367607553]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Prompt" type="TextEdit" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer/HBoxContainer" unique_id=1688394500]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Write your prompt here"
+scroll_fit_content_height = true
+
+[node name="SendBTN" type="Button" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer/HBoxContainer" unique_id=2061781085]
+layout_mode = 2
+text = "Send"
+
+[node name="CloseBTN" type="Button" parent="GUI/Phone" unique_id=1870590266]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4525862
+anchor_top = 0.921875
+anchor_right = 0.5387931
+anchor_bottom = 0.96651787
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
