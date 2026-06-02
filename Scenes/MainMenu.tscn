@@ -4,7 +4,27 @@
 [ext_resource type="VideoStream" uid="uid://dify0hp4kgbv2" path="res://Video/MainMenu.ogv" id="1_tt5f1"]
 [ext_resource type="Script" uid="uid://cqlahu55orylb" path="res://Scripts/MainMenu.gd" id="2_ghw46"]
 [ext_resource type="Script" uid="uid://f7xo621spsj2" path="res://Scripts/SetLabelValue.gd" id="3_8saeu"]
-[ext_resource type="FontFile" uid="uid://bajsv1yybayep" path="res://Fonts/BetterVCR 25.09.ttf" id="4_df05h"]
+[ext_resource type="Theme" uid="uid://h2kqsf511wl1" path="res://Themes/Menu_Theme.tres" id="4_8um5k"]
+[ext_resource type="FontFile" uid="uid://bajsv1yybayep" path="res://Themes/Fonts/BetterVCR 25.09.ttf" id="4_df05h"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_loo7a"]
+content_margin_top = 20.0
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8um5k"]
+content_margin_left = 25.0
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8um5k"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.03137255, 0.043137256, 0.06666667, 1)
 
 [node name="MainMenu" type="Control" unique_id=149137781]
 layout_mode = 3
@@ -56,7 +76,11 @@ anchor_left = 0.08680555
 anchor_top = 0.4220679
 anchor_right = 0.2170139
 anchor_bottom = 0.5779321
+offset_top = -61.5
+offset_right = 6.0
+offset_bottom = 61.5
 grow_vertical = 2
+theme = ExtResource("4_8um5k")
 metadata/_edit_use_anchors_ = true
 
 [node name="Play" type="Button" parent="VBoxContainer" unique_id=674639238]
@@ -88,7 +112,6 @@ theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_EXIT"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=906972168]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.28125
@@ -96,6 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
+theme = ExtResource("4_8um5k")
 metadata/_edit_use_anchors_ = true
 
 [node name="Options" type="VBoxContainer" parent="PanelContainer" unique_id=1832151714]
@@ -106,9 +130,10 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("4_df05h")
-current_tab = 0
+current_tab = 5
 
 [node name="TAB_GRAPHICS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=475599867]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -122,6 +147,7 @@ Performance impact: High"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1628722076]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_VIEW_DISTANCE"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance" unique_id=1453724312]
@@ -135,9 +161,14 @@ max_value = 500.0
 value = 30.0
 rounded = true
 
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider" unique_id=1819535453]
+layout_mode = 2
+
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider" unique_id=566133038 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -150,6 +181,7 @@ metadata/_tab_index = 1
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND" unique_id=1152162224]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_SOUND_NOCONFIG"
 
 [node name="TAB_CONTROLS" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1235675205]
@@ -166,6 +198,7 @@ Performance impact: None"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1433975125]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_MOUSESENS"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility" unique_id=1173527333]
@@ -181,7 +214,9 @@ value = 1.5
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/Mouse sensibility/Slider" unique_id=566627232 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -201,6 +236,7 @@ Performance impact: Low"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=298324381]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_MAP_UPDATE"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time" unique_id=1036126745]
@@ -215,7 +251,9 @@ value = 2.0
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/Map update time/Slider" unique_id=431148799 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -234,6 +272,7 @@ Performace impact: None"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=1664619760]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_MULTIPLAYER_SERVER"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Server" unique_id=871731722]
@@ -269,6 +308,7 @@ Performance impact: None"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1802256849]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_MULTIPLAYER_SYNC"
 
 [node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time" unique_id=1009457711]
@@ -283,7 +323,9 @@ value = 0.1
 
 [node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Sync time/Slider" unique_id=446206087 node_paths=PackedStringArray("Sl")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
 text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
@@ -300,6 +342,7 @@ Performance impact: None"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1315451371]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_USERNAME"
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Username" unique_id=1721639203]
@@ -323,6 +366,7 @@ Performance impact: None"
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1580570871]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_PASSWORD"
 
 [node name="TextEdit" type="TextEdit" parent="PanelContainer/Options/TabContainer/TAB_MULTIPLAYER/Password" unique_id=1413463996]
@@ -333,13 +377,13 @@ theme_override_fonts/font = ExtResource("4_df05h")
 placeholder_text = "Your password here"
 
 [node name="TAB_I40" type="VBoxContainer" parent="PanelContainer/Options/TabContainer" unique_id=1026671379]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
 [node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_I40" unique_id=2087109437]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
 text = "LBL_I4.0_NOCONFIG"
 
 [node name="Save" type="Button" parent="PanelContainer/Options" unique_id=690432085]
@@ -348,7 +392,6 @@ theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_SAVE_CONFIG"
 
 [node name="Credits" type="Control" parent="PanelContainer" unique_id=513204999]
-visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/Credits" unique_id=693973886]
@@ -358,6 +401,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8um5k")
 bbcode_enabled = true
 text = "[b]3D models[/b]
 - Level keys (modified) ([url=https://sketchfab.com/3d-models/key-ad78fc71092849ca9cd2f264e14a8167]Sketchfab[/url]) by [i]Mr NISHKE[/i].
