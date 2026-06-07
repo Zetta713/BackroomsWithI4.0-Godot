@@ -21,6 +21,10 @@ config/icon="uid://cyemyoma11115"
 
 project/assembly_name="BackroomsWithI4.0"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Godot-MToon-Shader/plugin.cfg", "res://addons/vrm/plugin.cfg")
+
 [global_group]
 
 Player=""
