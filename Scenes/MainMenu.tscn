@@ -51,11 +51,12 @@ GUI_Elements = {
 "ViewDistance": NodePath("../../PanelContainer/Options/TabContainer/TAB_GRAPHICS/View distance/Slider/HSlider")
 }
 
-[node name="MainMenu" type="Node" parent="Scripts" unique_id=1672166350 node_paths=PackedStringArray("SidePanelGUI", "OptionsGUI", "CreditsGUI")]
+[node name="MainMenu" type="Node" parent="Scripts" unique_id=1672166350 node_paths=PackedStringArray("SidePanelGUI", "OptionsGUI", "CreditsGUI", "CreditsLBL")]
 script = ExtResource("2_ghw46")
 SidePanelGUI = NodePath("../../PanelContainer")
 OptionsGUI = NodePath("../../PanelContainer/Options")
 CreditsGUI = NodePath("../../PanelContainer/Credits")
+CreditsLBL = NodePath("../../PanelContainer/Credits/RichTextLabel")
 
 [node name="Background" type="VideoStreamPlayer" parent="." unique_id=107242190]
 layout_mode = 1
@@ -392,17 +393,14 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_SAVE_CONFIG"
 
-[node name="Credits" type="Control" parent="PanelContainer" unique_id=513204999]
+[node name="Credits" type="ScrollContainer" parent="PanelContainer" unique_id=1775378985]
 visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/Credits" unique_id=693973886]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_8um5k")
 bbcode_enabled = true
 text = "[color=#c8a832][b]3D models[/b][/color]
@@ -424,9 +422,19 @@ text = "[color=#c8a832][b]3D models[/b][/color]
 - All code made by [color=#c8a832][i]Alcoft[/i][/color].
 
 [color=#c8a832][b]Video[/b][/color]
-- Main menu video (render) made by [color=#c8a832][i]Zetta713[/i][/color]."
+- Main menu video (render) made by [color=#c8a832][i]Zetta713[/i][/color].
+
+[color=#c8a832][b]Tools used[/b][/color]
+- Godot (Game Engine)
+- Blender (3D models)
+- GIMP (Texture creation)
+- [url=https://github.com/V-Sekai/godot-vrm]Godot VRM (Godot Addon)[/url]
+- [url=https://github.com/JekSun97/gdTree3D]Tree3D (Godot Addon)[/url]
+"
+fit_content = true
 
 [connection signal="pressed" from="VBoxContainer/Play" to="Scripts/MainMenu" method="StartGame"]
 [connection signal="pressed" from="VBoxContainer/Options" to="Scripts/MainMenu" method="ToggleConfigWindow" binds= ["options"]]
 [connection signal="pressed" from="VBoxContainer/Credits" to="Scripts/MainMenu" method="ToggleConfigWindow" binds= ["credits"]]
+[connection signal="pressed" from="VBoxContainer/Exit" to="Scripts/MainMenu" method="ExitGame"]
 [connection signal="pressed" from="PanelContainer/Options/Save" to="Scripts/ConfigManager" method="Save"]

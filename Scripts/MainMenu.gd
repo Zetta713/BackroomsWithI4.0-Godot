@@ -3,6 +3,7 @@ extends Node
 @export var SidePanelGUI: Control = null
 @export var OptionsGUI: Control = null
 @export var CreditsGUI: Control = null
+@export var CreditsLBL: RichTextLabel = null
 var CurrentConfigMode: String = ""
 
 func ToggleConfigWindow(Win: String) -> void:
@@ -33,3 +34,11 @@ func ToggleConfigWindow(Win: String) -> void:
 
 func StartGame() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Level TheHub.tscn")
+
+func ExitGame() -> void:
+	get_tree().quit()
+
+func _ready() -> void:
+	CreditsLBL.meta_clicked.connect(func(URL: String):
+		OS.shell_open(str(URL))
+	)
