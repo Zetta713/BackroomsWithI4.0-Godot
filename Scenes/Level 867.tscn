@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bi8kmqe2bgt7g"]
 
-[ext_resource type="PackedScene" uid="uid://c41y5lvp8o108" path="res://Meshes/I4.0/I4.0-1.vrm" id="1_ihi1k"]
-[ext_resource type="PackedScene" uid="uid://cr0taqx4d6l1m" path="res://Prefabs/Player.tscn" id="2_kr5fe"]
+[ext_resource type="PackedScene" uid="uid://bv06w6qcpkh0f" path="res://Prefabs/I4.0.tscn" id="1_kr5fe"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_saluw"]
 size = Vector2(10, 10)
@@ -14,11 +13,7 @@ size = Vector3(10, 0.001, 10)
 [node name="README" type="Node" parent="." unique_id=719275114]
 editor_description = "This level is to test things with the VRM models for now."
 
-[node name="I4_0" parent="." unique_id=81294745 instance=ExtResource("1_ihi1k")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
-
-[node name="Head" parent="I4_0/GeneralSkeleton" parent_id_path=PackedInt32Array(81294745, 19474684) index="3" unique_id=1245896133]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025288905, 21.088055, 0.27716386)
+[node name="I4_0" parent="." unique_id=2103764203 instance=ExtResource("1_kr5fe")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=683003437]
 mesh = SubResource("PlaneMesh_saluw")
@@ -28,7 +23,8 @@ mesh = SubResource("PlaneMesh_saluw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=502528272]
 shape = SubResource("BoxShape3D_kr5fe")
 
-[node name="Player" parent="." unique_id=632983521 instance=ExtResource("2_kr5fe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5408278, 0, 3.2522354)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=856669515]
+transform = Transform3D(0.8660254, 0, 0.5, -0.35355338, 0.70710677, 0.6123724, -0.35355338, -0.70710677, 0.6123724, 0, 3, 0)
 
-[editable path="I4_0"]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=915713626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)

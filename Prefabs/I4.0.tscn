@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bv06w6qcpkh0f"]
+
+[ext_resource type="Script" uid="uid://dk474sb6guehj" path="res://Scripts/I4.0/I4CharController.gd" id="1_tj7od"]
+[ext_resource type="PackedScene" uid="uid://c41y5lvp8o108" path="res://Meshes/I4.0/I4.0-1.vrm" id="1_tjtcn"]
+
+[node name="I4_0" type="Node3D" unique_id=2103764203]
+
+[node name="Scripts" type="Node" parent="." unique_id=174456245]
+
+[node name="Controller" type="Node" parent="Scripts" unique_id=609154493 node_paths=PackedStringArray("I4Animator", "I4Eyes")]
+script = ExtResource("1_tj7od")
+I4Animator = NodePath("../../Model/AnimationPlayer")
+I4Eyes = NodePath("../../Model/GeneralSkeleton/Eyes")
+
+[node name="Model" parent="." unique_id=81294745 instance=ExtResource("1_tjtcn")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
+
+[node name="Head" parent="Model/GeneralSkeleton" parent_id_path=PackedInt32Array(81294745, 19474684) index="3" unique_id=1245896133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025288905, 21.088055, 0.27716386)
+
+[editable path="Model"]
