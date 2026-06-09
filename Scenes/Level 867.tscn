@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bi8kmqe2bgt7g"]
 
 [ext_resource type="PackedScene" uid="uid://bv06w6qcpkh0f" path="res://Prefabs/I4.0.tscn" id="1_kr5fe"]
+[ext_resource type="PackedScene" uid="uid://cr0taqx4d6l1m" path="res://Prefabs/Player.tscn" id="2_kr5fe"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_saluw"]
 size = Vector2(10, 10)
@@ -26,5 +27,5 @@ shape = SubResource("BoxShape3D_kr5fe")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=856669515]
 transform = Transform3D(0.8660254, 0, 0.5, -0.35355338, 0.70710677, 0.6123724, -0.35355338, -0.70710677, 0.6123724, 0, 3, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=915713626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+[node name="Player" parent="." unique_id=632983521 instance=ExtResource("2_kr5fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9845463, 0.0005002022, 3.2135043)

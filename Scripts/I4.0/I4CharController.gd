@@ -1,22 +1,6 @@
 class_name I4CharController extends Node
 
-enum I4EyesSkinMode
-{
-	CURRENT = -1,
-	HAPPY = 0,
-	SAD = 1,
-	ANGRY = 2,
-	LOVE = 3
-}
-
-enum I4EyesControlMode
-{
-	CURRENT = -1,
-	FOLLOW_PLAYER = 0,
-	CUSTOM = 1
-}
-
-const I4_TOOLS: Array[Dictionary] = [
+const I4_TOOLS = [
 	{
 		"name": "set_pose",
 		"description": "Changes your pose",
@@ -30,6 +14,21 @@ const I4_TOOLS: Array[Dictionary] = [
 				}
 			},
 			"required": ["pose_name"]
+		}
+	},
+	{
+		"name": "set_mouth",
+		"description": "Changes your mouth",
+		"parameters": {
+			"type": "object",
+			"properties": {
+				"mouth_name": {
+					"type": "string",
+					"description": "Mouth name",
+					"enum": ["normal", "nervous", "cat"]
+				}
+			},
+			"required": ["mouth_name"]
 		}
 	},
 	{
@@ -49,29 +48,29 @@ const I4_TOOLS: Array[Dictionary] = [
 					"enum": ["happy", "sad", "angry", "love"]
 				},
 				"is_surprised": {
-					"type": ["boolean", "null"],
+					"type": "boolean",
 					"description": "Wether you are surprised or not, this toggle makes your eyes smaller, null is 'keep unchanged'",
-					"default": null
+					"default": false
 				},
 				"move_vertical_l": {
-					"type": ["float", "null"],
+					"type": "float",
 					"description": "Left eye vertical position, -1 is fully up, 0 is centered, 1 is fully down, null is 'keep unchanged', only works with the 'custom' control_mode",
-					"default": null
+					"default": 0
 				},
 				"move_horizontal_l": {
-					"type": ["float", "null"],
+					"type": "float",
 					"description": "Left eye horizontal position, -1 is fully right, 0 is centered, 1 is fully left, null is 'keep unchanged', only works with the 'custom' control_mode",
-					"default": null
+					"default": 0
 				},
 				"move_vertical_r": {
-					"type": ["float", "null"],
+					"type": "float",
 					"description": "Right eye vertical position, -1 is fully up, 0 is centered, 1 is fully down, null is 'keep unchanged', only works with the 'custom' control_mode",
-					"default": null
+					"default": 0
 				},
 				"move_horizontal_r": {
-					"type": ["float", "null"],
+					"type": "float",
 					"description": "Right eye horizontal position, -1 is fully right, 0 is centered, 1 is fully left, null is 'keep unchanged', only works with the 'custom' control_mode",
-					"default": null
+					"default": 0
 				}
 			},
 			"required": ["control_mode", "emotion"]
@@ -79,63 +78,101 @@ const I4_TOOLS: Array[Dictionary] = [
 	}
 ]
 
-@export var I4Animator: AnimationPlayer = null
-@export var I4Eyes: MeshInstance3D = null
+@export_category("Blend shapes")
+var __BS_Eyes_Happy__: int = -1  # In this case, 1 hides the eyes
+var __BS_Eyes_Sad__: int = -1
+var __BS_Eyes_Angry__: int = -1
+var __BS_Eyes_Love__: int = -1
+var __BS_Eyes_Surprised__: int = -1
+var __BS_Eyes_L_Left__: int = -1  # 1 = left, 0 = centered, -1 = right
+var __BS_Eyes_L_Up__: int = -1  # 1 = up, 0 = centered, -1 = down
+var __BS_Eyes_R_Left__: int = -1  # 1 = left, 0 = centered, -1 = right
+var __BS_Eyes_R_Up__: int = -1  # 1 = up, 0 = centered, -1 = down
+var __BS_Clothes_TShirt_Out__: int = -1
+var __BS_Mouth_Nervous__: int = -1
+var __BS_Mouth_Cat__: int = -1
+
+@export_category("Animation")
+@export var Animator: AnimationPlayer = null
+
+@export_category("Eyes")
+@export var Eyes: MeshInstance3D = null
+@export var EyesPivot: Node3D = null
+var __last_eyes_skin__: String = ""
+var Eyes_Target: Node3D = null
+var Eyes_Skin: String = "happy"  # "happy", "sad", "angry", "love"
+var Eyes_Surprised: bool = false
+var Eyes_L_OverridePosition: Vector2 = Vector2.ZERO
+var Eyes_R_OverridePosition: Vector2 = Vector2.ZERO
+
+@export_category("Body")
+@export var Body: MeshInstance3D = null
+
+@export_category("Mouth")
+var Mouth_Mode: String = "normal"  # "normal", "nervous", "cat"
+
+@export_category("Clothes")
+@export var Clothes: MeshInstance3D = null
+var Clothes_TShirtOut: bool = false
+
+@export_category("Pose")
 var CurrentPose: StringName = "none"
 
-func SetPose(Name: StringName = "none") -> void:
-	pass
+func _ready() -> void:
+	__BS_Eyes_Happy__ = Eyes.find_blend_shape_by_name("Eyes_Happy")
+	__BS_Eyes_Sad__ = Eyes.find_blend_shape_by_name("Eyes_Sad")
+	__BS_Eyes_Angry__ = Eyes.find_blend_shape_by_name("Eyes_Angry")
+	__BS_Eyes_Love__ = Eyes.find_blend_shape_by_name("Eyes_Love")
+	__BS_Eyes_Surprised__ = Eyes.find_blend_shape_by_name("Eye_?")
+	__BS_Eyes_L_Left__ = Eyes.find_blend_shape_by_name("Eye_Left_L")
+	__BS_Eyes_L_Up__ = Eyes.find_blend_shape_by_name("Eye_Up_L")
+	__BS_Eyes_R_Left__ = Eyes.find_blend_shape_by_name("Eye_Left_R")
+	__BS_Eyes_R_Up__ = Eyes.find_blend_shape_by_name("Eye_Up_R")
+	__BS_Clothes_TShirt_Out__ = Clothes.find_blend_shape_by_name("T-Shirt_Out")
+	__BS_Mouth_Nervous__ = Body.find_blend_shape_by_name("Mouth_w")
+	__BS_Mouth_Cat__ = Body.find_blend_shape_by_name("Mouth__3")
+	
+	Eyes_Target = get_tree().root.get_camera_3d()
 
-func SetEyes(
-	ControlMode: I4EyesControlMode = I4EyesControlMode.CURRENT,
-	SkinMode: I4EyesSkinMode = I4EyesSkinMode.CURRENT,
-	IsSurprised: int = -1,
-	CUSTOM_L_Vertical: float = -2,
-	CUSTOM_L_Horizontal: float = -2,
-	CUSTOM_R_Vertical: float = -2,
-	CUSTOM_R_Horizontal: float = -2
-) -> void:
-	var eyesHappy = I4Eyes.find_blend_shape_by_name("Eyes_Happy")
-	var eyesSad = I4Eyes.find_blend_shape_by_name("Eyes_Sad")
-	var eyesAngry = I4Eyes.find_blend_shape_by_name("Eyes_Angry")
-	var eyesLove = I4Eyes.find_blend_shape_by_name("Eyes_Love")
-	var eyesSurprised = I4Eyes.find_blend_shape_by_name("Eye_?")
-	var eyeLVertical = I4Eyes.find_blend_shape_by_name("Eye_Down_L")
-	var eyeLHorizontal = I4Eyes.find_blend_shape_by_name("Eye_Right_L")
-	var eyeRVertical = I4Eyes.find_blend_shape_by_name("Eye_Down_R")
-	var eyeRHorizontal = I4Eyes.find_blend_shape_by_name("Eye_Right_R")
+func _process(_Delta: float) -> void:
+	# Mouth control
+	Body.set_blend_shape_value(__BS_Mouth_Nervous__, 1 if (Mouth_Mode == "nervous") else 0)
+	Body.set_blend_shape_value(__BS_Mouth_Cat__, 1 if (Mouth_Mode == "cat") else 0)
 	
-	if (ControlMode == I4EyesControlMode.FOLLOW_PLAYER):
-		pass  # TODO: Follow player with its eyes
-	elif (ControlMode == I4EyesControlMode.CUSTOM):
-		if (CUSTOM_L_Vertical != -2):
-			I4Eyes.set_blend_shape_value(eyeLVertical, clampf(CUSTOM_L_Vertical, -1, 1))
-		
-		if (CUSTOM_L_Horizontal != -2):
-			I4Eyes.set_blend_shape_value(eyeLHorizontal, clampf(CUSTOM_L_Horizontal, -1, 1))
-		
-		if (CUSTOM_R_Vertical != -2):
-			I4Eyes.set_blend_shape_value(eyeRVertical, clampf(CUSTOM_R_Vertical, -1, 1))
-		
-		if (CUSTOM_R_Horizontal != -2):
-			I4Eyes.set_blend_shape_value(eyeRHorizontal, clampf(CUSTOM_R_Horizontal, -1, 1))
+	# Clothes control
+	Clothes.set_blend_shape_value(__BS_Clothes_TShirt_Out__, 1 if (Clothes_TShirtOut) else 0)
 	
-	if (SkinMode != I4EyesSkinMode.CURRENT):
-		I4Eyes.set_blend_shape_value(eyesHappy, 1)
-		I4Eyes.set_blend_shape_value(eyesAngry, 0)
-		I4Eyes.set_blend_shape_value(eyesSad, 0)
-		I4Eyes.set_blend_shape_value(eyesLove, 0)
-		
-		if (SkinMode == I4EyesSkinMode.HAPPY):
-			I4Eyes.set_blend_shape_value(eyesHappy, 0)
-		elif (SkinMode == I4EyesSkinMode.ANGRY):
-			I4Eyes.set_blend_shape_value(eyesAngry, 1)
-		elif (SkinMode == I4EyesSkinMode.SAD):
-			I4Eyes.set_blend_shape_value(eyesSad, 1)
-		elif (SkinMode == I4EyesSkinMode.LOVE):
-			I4Eyes.set_blend_shape_value(eyesLove, 1)
-		else:
-			push_error("Unrecognized I4.0 eyes skin mode. Ignoring.")
+	# Eyes control
+	var eyeLPosition = Vector2.ZERO
+	var eyeRPosition = Vector2.ZERO
 	
-	if (IsSurprised != 0):
-		I4Eyes.set_blend_shape_value(eyesSurprised, clampi(IsSurprised, 0, 1))
+	if (Eyes_Target == null):
+		# No target to look at, using override position
+		eyeLPosition = Eyes_L_OverridePosition
+		eyeRPosition = Eyes_R_OverridePosition
+	else:
+		# Look at the target
+		var localDir = EyesPivot.to_local(Eyes_Target.global_position).normalized()
+		
+		eyeLPosition = Vector2(
+			localDir.x * (1.35 if (localDir.x) < 0 else 1),
+			localDir.y
+		)
+		eyeRPosition = Vector2(
+			localDir.x * (1.35 if (localDir.x) > 0 else 1),
+			localDir.y
+		)
+	
+	Eyes.set_blend_shape_value(__BS_Eyes_Surprised__, 1 if (Eyes_Surprised) else 0)
+	Eyes.set_blend_shape_value(__BS_Eyes_L_Left__, clampf(eyeLPosition.x, -1, 1))
+	Eyes.set_blend_shape_value(__BS_Eyes_L_Up__, clampf(eyeLPosition.y, -1, 1))
+	Eyes.set_blend_shape_value(__BS_Eyes_R_Left__, clampf(eyeRPosition.x, -1, 1))
+	Eyes.set_blend_shape_value(__BS_Eyes_R_Up__, clampf(eyeRPosition.y, -1, 1))
+	
+	if (Eyes_Skin != __last_eyes_skin__):
+		__last_eyes_skin__ = Eyes_Skin
+		
+		Eyes.set_blend_shape_value(__BS_Eyes_Happy__, 1 - int(Eyes_Skin == "happy"))
+		Eyes.set_blend_shape_value(__BS_Eyes_Sad__, int(Eyes_Skin == "sad"))
+		Eyes.set_blend_shape_value(__BS_Eyes_Angry__, int(Eyes_Skin == "angry"))
+		Eyes.set_blend_shape_value(__BS_Eyes_Love__, int(Eyes_Skin == "love"))
