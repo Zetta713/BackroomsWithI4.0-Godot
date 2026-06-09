@@ -4,8 +4,28 @@
 [ext_resource type="VideoStream" uid="uid://dify0hp4kgbv2" path="res://Video/MainMenu.ogv" id="1_tt5f1"]
 [ext_resource type="Script" uid="uid://cqlahu55orylb" path="res://Scripts/MainMenu.gd" id="2_ghw46"]
 [ext_resource type="Script" uid="uid://f7xo621spsj2" path="res://Scripts/SetLabelValue.gd" id="3_8saeu"]
+[ext_resource type="Material" uid="uid://dvyagsyulanr" path="res://Textures/Level 0 Carpet/Level 0 Carpet.tres" id="3_xim88"]
 [ext_resource type="Theme" uid="uid://h2kqsf511wl1" path="res://Themes/Menu_Theme.tres" id="4_8um5k"]
 [ext_resource type="FontFile" uid="uid://bajsv1yybayep" path="res://Themes/Fonts/BetterVCR 25.09.ttf" id="4_df05h"]
+[ext_resource type="Material" uid="uid://dyqykcnprjxfv" path="res://Textures/OfficeCeiling001/OfficeCeiling001_4K-JPG-ALT1.tres" id="4_if7li"]
+[ext_resource type="PackedScene" uid="uid://cw1xeylt2lkj" path="res://Prefabs/Lvl0Wall.tscn" id="4_koqhg"]
+
+[sub_resource type="Environment" id="Environment_loo7a"]
+background_mode = 1
+background_color = Color(0.12225223, 0.12225223, 0.12225223, 1)
+ssao_enabled = true
+glow_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_koqhg"]
+size = Vector2(8, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rrcx7"]
+flip_faces = true
+size = Vector2(8, 8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_koqhg"]
+size = Vector2(3, 1.5)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_loo7a"]
 content_margin_top = 20.0
@@ -58,7 +78,158 @@ OptionsGUI = NodePath("../../PanelContainer/Options")
 CreditsGUI = NodePath("../../PanelContainer/Credits")
 CreditsLBL = NodePath("../../PanelContainer/Credits/RichTextLabel")
 
+[node name="Scene" type="Node3D" parent="." unique_id=456500584]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene" unique_id=1826983404]
+environment = SubResource("Environment_loo7a")
+
+[node name="Floor" type="MeshInstance3D" parent="Scene" unique_id=1088067476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor2" type="MeshInstance3D" parent="Scene" unique_id=1893933347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor3" type="MeshInstance3D" parent="Scene" unique_id=551215777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor4" type="MeshInstance3D" parent="Scene" unique_id=1171526412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor5" type="MeshInstance3D" parent="Scene" unique_id=684235648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor6" type="MeshInstance3D" parent="Scene" unique_id=724942909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Scene" unique_id=44302511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.75, 4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling2" type="MeshInstance3D" parent="Scene" unique_id=687765536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.75, -4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling3" type="MeshInstance3D" parent="Scene" unique_id=501209990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.75, 4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling4" type="MeshInstance3D" parent="Scene" unique_id=107646762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.75, -4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling5" type="MeshInstance3D" parent="Scene" unique_id=1206531882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling6" type="MeshInstance3D" parent="Scene" unique_id=1318587709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -4)
+material_override = ExtResource("4_if7li")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Lvl0Wall" parent="Scene" unique_id=2083741031 instance=ExtResource("4_koqhg")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -1, 0, -5.25)
+
+[node name="Lvl0Wall2" parent="Scene" unique_id=645758765 instance=ExtResource("4_koqhg")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 5, 0, 4.25)
+
+[node name="Light 1" type="OmniLight3D" parent="Scene" unique_id=874906251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.625, -1)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_enabled = true
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 2" type="OmniLight3D" parent="Scene" unique_id=532524886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3.625, -1)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_enabled = true
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 3" type="OmniLight3D" parent="Scene" unique_id=1613590537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.625, 4)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_enabled = true
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 4" type="OmniLight3D" parent="Scene" unique_id=222177628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3.625, 4)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 5" type="OmniLight3D" parent="Scene" unique_id=1275768401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.625, -6)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 6" type="OmniLight3D" parent="Scene" unique_id=282010579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3.625, -6)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Smiler" type="MeshInstance3D" parent="Scene" unique_id=1454768422]
+transform = Transform3D(0.6664544, -0.11362071, -0.7368371, 0, 0.988319, -0.15239936, 0.74554586, 0.10156723, 0.65866953, 2, 1.5, -1)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_koqhg")
+
+[node name="Camera3D" type="Camera3D" parent="Scene" unique_id=1375382829]
+transform = Transform3D(0.8328673, -0.21054354, -0.5118627, 0.08418597, 0.96225023, -0.25881904, 0.54703265, 0.17247027, 0.8191515, -7, 0.1, 7)
+current = true
+fov = 56.0
+
 [node name="Background" type="VideoStreamPlayer" parent="." unique_id=107242190]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
