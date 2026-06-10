@@ -61,6 +61,9 @@ static func CreateSoundPlayers(Self: bool, Parent: Node3D) -> Dictionary[String,
 	whistlePlayer.doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
 	Parent.add_child(whistlePlayer)
 	
+	if (Self):
+		pass
+	
 	return {
 		"Whistle": whistlePlayer
 	}
