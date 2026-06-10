@@ -1,7 +1,7 @@
 class_name Globals extends Resource
 
 static var Instance: Globals = null
-static var LevelToLoad: PackedScene = null
+static var LevelToLoad: String = ""
 
 # ====================
 #       GRAPHICS

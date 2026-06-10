@@ -12,7 +12,7 @@ size = Vector3(10, 0.001, 10)
 [node name="Level 867" type="Node3D" unique_id=2006164325]
 
 [node name="README" type="Node" parent="." unique_id=719275114]
-editor_description = "This level is to test things with the VRM models for now."
+editor_description = "This level is to test things with the VRM models and the I4.0 AI for now."
 
 [node name="I4_0" parent="." unique_id=2103764203 instance=ExtResource("1_kr5fe")]
 

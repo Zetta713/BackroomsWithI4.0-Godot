@@ -348,10 +348,8 @@ func _ready() -> void:
 	if (Generate):
 		var hasMaps = Maps.size() > 0
 		
-		if (!hasMaps):
-			SpawnPlayer()
-		
-		UpdateChunks(20, 20)
+		SpawnPlayer()
+		UpdateChunks()
 		
 		if (hasMaps):
 			SpawnPlayer()

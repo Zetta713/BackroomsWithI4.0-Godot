@@ -30,9 +30,7 @@ Clothes = NodePath("../../Model/GeneralSkeleton/Clothes")
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0, 0, 0)
 
 [node name="GeneralSkeleton" parent="Model" index="0" unique_id=19474684]
-bones/157/rotation = Quaternion(-0.5517187, 0.8340303, 0, 0)
 bones/157/scale = Vector3(0.99999994, 1, 1)
-bones/158/rotation = Quaternion(0.18375665, 0.65770113, -0.71547806, -0.14749208)
 bones/158/scale = Vector3(1.0000001, 1, 0.9999997)
 
 [node name="Head" parent="Model/GeneralSkeleton" index="3" unique_id=1245896133]
@@ -40,6 +38,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025288905, 21.088055, 0.2
 
 [node name="AnimationPlayer" parent="Model" index="1" unique_id=310201498]
 libraries/Poses = SubResource("AnimationLibrary_u6m2o")
+autoplay = &"RESET"
 
 [node name="Pivots" type="Node3D" parent="." unique_id=1068910624]
 

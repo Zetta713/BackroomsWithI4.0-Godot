@@ -79,15 +79,15 @@ const I4_TOOLS = [
 ]
 
 @export_category("Blend shapes")
-var __BS_Eyes_Happy__: int = -1  # In this case, 1 hides the eyes
+var __BS_Eyes_Happy__: int = -1
 var __BS_Eyes_Sad__: int = -1
 var __BS_Eyes_Angry__: int = -1
 var __BS_Eyes_Love__: int = -1
 var __BS_Eyes_Surprised__: int = -1
-var __BS_Eyes_L_Left__: int = -1  # 1 = left, 0 = centered, -1 = right
-var __BS_Eyes_L_Up__: int = -1  # 1 = up, 0 = centered, -1 = down
-var __BS_Eyes_R_Left__: int = -1  # 1 = left, 0 = centered, -1 = right
-var __BS_Eyes_R_Up__: int = -1  # 1 = up, 0 = centered, -1 = down
+var __BS_Eyes_L_Left__: int = -1
+var __BS_Eyes_L_Up__: int = -1
+var __BS_Eyes_R_Left__: int = -1
+var __BS_Eyes_R_Up__: int = -1
 var __BS_Clothes_TShirt_Out__: int = -1
 var __BS_Mouth_Nervous__: int = -1
 var __BS_Mouth_Cat__: int = -1
@@ -100,8 +100,9 @@ var __BS_Mouth_Cat__: int = -1
 @export var EyesPivot: Node3D = null
 var __last_eyes_skin__: String = ""
 var Eyes_Target: Node3D = null
-var Eyes_Skin: String = "happy"  # "happy", "sad", "angry", "love"
+var Eyes_Skin: String = "love"  # "happy", "sad", "angry", "love"
 var Eyes_Surprised: bool = false
+var Eyes_Surprised_Crazy: bool = false
 var Eyes_L_OverridePosition: Vector2 = Vector2.ZERO
 var Eyes_R_OverridePosition: Vector2 = Vector2.ZERO
 
@@ -134,7 +135,7 @@ func _ready() -> void:
 	
 	Eyes_Target = get_tree().root.get_camera_3d()
 
-func _process(_Delta: float) -> void:
+func _process(Delta: float) -> void:
 	# Mouth control
 	Body.set_blend_shape_value(__BS_Mouth_Nervous__, 1 if (Mouth_Mode == "nervous") else 0)
 	Body.set_blend_shape_value(__BS_Mouth_Cat__, 1 if (Mouth_Mode == "cat") else 0)
@@ -163,16 +164,20 @@ func _process(_Delta: float) -> void:
 			localDir.y
 		)
 	
-	Eyes.set_blend_shape_value(__BS_Eyes_Surprised__, 1 if (Eyes_Surprised) else 0)
-	Eyes.set_blend_shape_value(__BS_Eyes_L_Left__, clampf(eyeLPosition.x, -1, 1))
-	Eyes.set_blend_shape_value(__BS_Eyes_L_Up__, clampf(eyeLPosition.y, -1, 1))
-	Eyes.set_blend_shape_value(__BS_Eyes_R_Left__, clampf(eyeRPosition.x, -1, 1))
-	Eyes.set_blend_shape_value(__BS_Eyes_R_Up__, clampf(eyeRPosition.y, -1, 1))
+	if (Eyes_Surprised && Eyes_Surprised_Crazy):
+		Eyes.set_blend_shape_value(__BS_Eyes_Surprised__, lerpf(Eyes.get_blend_shape_value(__BS_Eyes_Surprised__), randf_range(0, 1), Delta * 10))  # Makes the eyes smaller randomly
+	else:
+		Eyes.set_blend_shape_value(__BS_Eyes_Surprised__, 1 if (Eyes_Surprised) else 0)  # Makes the eyes smaller
+	
+	Eyes.set_blend_shape_value(__BS_Eyes_L_Left__, clampf(eyeLPosition.x, -1, 1))  # 1 = left, 0 = centered, -1 = right
+	Eyes.set_blend_shape_value(__BS_Eyes_L_Up__, clampf(eyeLPosition.y, -1, 1))  # 1 = up, 0 = centered, -1 = down
+	Eyes.set_blend_shape_value(__BS_Eyes_R_Left__, clampf(eyeRPosition.x, -1, 1))  # 1 = left, 0 = centered, -1 = right
+	Eyes.set_blend_shape_value(__BS_Eyes_R_Up__, clampf(eyeRPosition.y, -1, 1))  # 1 = up, 0 = centered, -1 = down
 	
 	if (Eyes_Skin != __last_eyes_skin__):
 		__last_eyes_skin__ = Eyes_Skin
 		
-		Eyes.set_blend_shape_value(__BS_Eyes_Happy__, 1 - int(Eyes_Skin == "happy"))
+		Eyes.set_blend_shape_value(__BS_Eyes_Happy__, 1 - int(Eyes_Skin == "happy"))  # In this case, 1 hides the eyes
 		Eyes.set_blend_shape_value(__BS_Eyes_Sad__, int(Eyes_Skin == "sad"))
 		Eyes.set_blend_shape_value(__BS_Eyes_Angry__, int(Eyes_Skin == "angry"))
 		Eyes.set_blend_shape_value(__BS_Eyes_Love__, int(Eyes_Skin == "love"))
