@@ -12,8 +12,7 @@ extends Node
 }
 
 func _ready() -> void:
-	if (Globals.Instance == null):
-		Globals.LoadConfig()
+	Globals.CheckInstance()
 	
 	for paramName in GUI_Elements.keys():
 		var elementNode = GUI_Elements[paramName]

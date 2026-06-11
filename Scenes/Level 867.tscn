@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bi8kmqe2bgt7g"]
 
 [ext_resource type="PackedScene" uid="uid://bv06w6qcpkh0f" path="res://Prefabs/I4.0.tscn" id="1_kr5fe"]
-[ext_resource type="Script" uid="uid://dshhl2lxlp27s" path="res://Scripts/I4.0/Conn.cs" id="1_saluw"]
 [ext_resource type="PackedScene" uid="uid://cr0taqx4d6l1m" path="res://Prefabs/Player.tscn" id="2_kr5fe"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_saluw"]
@@ -14,9 +13,6 @@ size = Vector3(10, 0.001, 10)
 
 [node name="README" type="Node" parent="." unique_id=719275114]
 editor_description = "This level is to test things with the VRM models and the I4.0 AI for now."
-
-[node name="Node" type="Node" parent="README" unique_id=31680988]
-script = ExtResource("1_saluw")
 
 [node name="I4_0" parent="." unique_id=2103764203 instance=ExtResource("1_kr5fe")]
 

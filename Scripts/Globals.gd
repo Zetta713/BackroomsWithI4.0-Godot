@@ -82,6 +82,12 @@ static func ParsePath(Path: String) -> String:
 	
 	return path
 
+static func CheckInstance() -> void:
+	if (Instance != null):
+		return
+	
+	LoadConfig()
+
 static func __load_config_parser__(Ins: Variant, D: Dictionary) -> void:
 	for paramName in D.keys():
 		var paramValue = D[paramName]

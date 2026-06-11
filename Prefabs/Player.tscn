@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bb6ahd78hh4w6" path="res://Scripts/Character/CharacterMovement.gd" id="1_x3d5u"]
 [ext_resource type="PackedScene" uid="uid://du4qj6k5pomli" path="res://Prefabs/PlayerSkin.tscn" id="2_b43ah"]
+[ext_resource type="Script" uid="uid://dshhl2lxlp27s" path="res://Scripts/I4.0/Conn.cs" id="2_shmu5"]
+[ext_resource type="Script" uid="uid://55ebtdire5kx" path="res://Scripts/Character/Phone.gd" id="3_vxq8l"]
+[ext_resource type="Theme" uid="uid://b3i1mafsd72c0" path="res://Themes/Phone.tres" id="4_shmu5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yg3f5"]
 radius = 0.45
@@ -24,12 +27,33 @@ bg_color = Color(0.33288053, 0.33288074, 0.33288068, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_javds"]
 bg_color = Color(0.6789437, 0.6789437, 0.6789436, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ygst"]
+bg_color = Color(0.14406255, 0.14406255, 0.14406249, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhekp"]
+bg_color = Color(0.10747974, 0.10747974, 0.10747967, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
 [node name="Player" type="CharacterBody3D" unique_id=632983521 node_paths=PackedStringArray("WaterGUI", "FoodGUI", "StaminaGUI", "Head") groups=["Player"]]
 script = ExtResource("1_x3d5u")
 WaterGUI = NodePath("GUI/Stats/Water/ProgressBar")
 FoodGUI = NodePath("GUI/Stats/Food/ProgressBar")
 StaminaGUI = NodePath("GUI/Stats/Stamina/ProgressBar")
 Head = NodePath("Camera3D")
+
+[node name="Scripts" type="Node" parent="." unique_id=1109398633]
+
+[node name="I4Conn" type="Node" parent="Scripts" unique_id=2102811963]
+script = ExtResource("2_shmu5")
+
+[node name="Phone" type="Node" parent="Scripts" unique_id=622918129 node_paths=PackedStringArray("Apps", "NotCreatedApp", "GUI")]
+script = ExtResource("3_vxq8l")
+Apps = [NodePath("../../GUI/Phone/Screen/I4_0 App")]
+NotCreatedApp = NodePath("../../GUI/Phone/Screen/NotImplementedApp")
+GUI = NodePath("../../GUI")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1256130155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.25)
@@ -138,15 +162,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("4_shmu5")
 metadata/_edit_use_anchors_ = true
 
 [node name="BG" type="Panel" parent="GUI/Phone" unique_id=783225992]
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ygst")
 
 [node name="Screen" type="Control" parent="GUI/Phone" unique_id=1479648982]
 anchors_preset = 0
@@ -188,13 +213,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 3
+columns = 2
 
-[node name="I40" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=1454312449]
+[node name="I4_0" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=1454312449]
 layout_mode = 2
 text = "APP_I4.0"
 
-[node name="I40 App" type="Control" parent="GUI/Phone/Screen" unique_id=1046761840]
+[node name="Camera" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=635405426]
+layout_mode = 2
+text = "APP_CAM"
+
+[node name="Notifications" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=475185062]
+layout_mode = 2
+text = "APP_NOTIF"
+
+[node name="I4_0 App" type="Control" parent="GUI/Phone/Screen" unique_id=1046761840]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -202,7 +236,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="ColorRect" parent="GUI/Phone/Screen/I40 App" unique_id=515620357]
+[node name="BG" type="ColorRect" parent="GUI/Phone/Screen/I4_0 App" unique_id=515620357]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,7 +245,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.19562104, 0.21670997, 0.5840503, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App" unique_id=2035504993]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App" unique_id=2035504993]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -219,40 +253,96 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Message area" type="ScrollContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer" unique_id=577219193]
+[node name="Message area" type="ScrollContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer" unique_id=577219193]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Message area" unique_id=363176116]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area" unique_id=363176116]
 layout_mode = 2
 
-[node name="Prompt area" type="PanelContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer" unique_id=1480441698]
+[node name="Prompt area" type="PanelContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer" unique_id=1480441698]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area" unique_id=1004568675]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area" unique_id=1004568675]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=1367607553]
+[node name="TextArea" type="HBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=1367607553]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Prompt" type="TextEdit" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer/HBoxContainer" unique_id=1688394500]
+[node name="Prompt" type="TextEdit" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea" unique_id=1688394500]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Write your prompt here"
 scroll_fit_content_height = true
 
-[node name="SendBTN" type="Button" parent="GUI/Phone/Screen/I40 App/VBoxContainer/Prompt area/VBoxContainer/HBoxContainer" unique_id=2061781085]
+[node name="SendBTN" type="Button" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea" unique_id=2061781085]
 layout_mode = 2
 text = "Send"
 
-[node name="CloseBTN" type="Button" parent="GUI/Phone" unique_id=1870590266]
+[node name="FilesArea" type="HBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=955748961]
+layout_mode = 2
+
+[node name="AttachFile" type="MenuButton" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/FilesArea" unique_id=519872298]
+layout_mode = 2
+text = "+"
+item_count = 2
+popup/item_0/text = "From local storage"
+popup/item_0/id = 0
+popup/item_1/text = "Take picture"
+popup/item_1/id = 1
+
+[node name="Files" type="ScrollContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/FilesArea" unique_id=1118416399]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/FilesArea/Files" unique_id=1314671078]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NotImplementedApp" type="Control" parent="GUI/Phone/Screen" unique_id=218435436]
+visible = false
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="PanelContainer" parent="GUI/Phone/Screen/NotImplementedApp" unique_id=1590074772]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GUI/Phone/Screen/NotImplementedApp" unique_id=2128557774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NOT_IMPLEMENTED_APP_MSG"
+autowrap_mode = 3
+
+[node name="CloseBTN" type="Button" parent="GUI/Phone" unique_id=1870590266]
+layout_mode = 0
 anchor_left = 0.4525862
 anchor_top = 0.921875
 anchor_right = 0.5387931
 anchor_bottom = 0.96651787
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_lhekp")
 metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/I4_0" to="Scripts/Phone" method="OpenApp" binds= [&"I4_0 App"]]
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/Camera" to="Scripts/Phone" method="OpenApp" binds= [&"Camera App"]]
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/Notifications" to="Scripts/Phone" method="OpenApp" binds= [&"Notifications App"]]
+[connection signal="pressed" from="GUI/Phone/CloseBTN" to="Scripts/Phone" method="CloseCurrentApp"]

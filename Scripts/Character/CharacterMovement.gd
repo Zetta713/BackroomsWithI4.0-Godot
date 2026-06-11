@@ -161,9 +161,7 @@ func UpdateMultiplayer() -> void:
 	MUL.SetSounds(MultiplayerSounds)
 
 func _init() -> void:
-	if (Globals.Instance == null):
-		Globals.LoadConfig()
-	
+	Globals.CheckInstance()
 	Sounds = Globals.CreateSoundPlayers(true, self)
 
 func _ready() -> void:
